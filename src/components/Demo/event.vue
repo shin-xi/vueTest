@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import eventChild from '@/components/Demo/event_child'
+import eventChild from '@/components/Demo/eventChild'
 import baseInput from '@/components/Demo/baseInput'
 
 export default {

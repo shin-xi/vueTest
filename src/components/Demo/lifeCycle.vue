@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import lifeCycleChild from '@/components/Demo/lifeCycle_child'
+import lifeCycleChild from '@/components/Demo/lifeCycleChild'
 
 export default {
   name: 'lifeCycle',

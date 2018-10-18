@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import slotChild from '@/components/Demo/slot_child'
+import slotChild from '@/components/Demo/slotChild'
 
 export default {
   name: 'mySlot',

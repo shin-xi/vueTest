@@ -23,7 +23,10 @@ export default {
         { to: '/demo/modifier', description: '修饰符' },
         { to: '/demo/prop', description: 'prop验证' },
         { to: '/demo/event', description: '自定义事件' },
-        { to: '/demo/slot', description: '插槽' }
+        { to: '/demo/slot', description: '插槽' },
+        { to: '/demo/dynCom', description: '动态组件' },
+        { to: '/demo/asyCom', description: '异步组件' },
+        { to: '/demo/edgeCase', description: '边界情况' }
       ]
     }
   }

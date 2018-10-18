@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import propChild from '@/components/Demo/prop_child'
+import propChild from '@/components/Demo/propChild'
 
 export default {
   name: 'prop',
