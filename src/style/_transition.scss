@@ -1,0 +1,44 @@
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.demo-enter-active, .demo-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.demo-enter {
+  color: yellow;
+  font-size: 30px;
+  transform: translateX(100%);
+}
+
+.demo-enter-to {
+  color: green;
+  font-size: 50px;
+  transform: translateX(0);
+}
+
+.demo-leave {
+  color: green;
+  font-size: 50px;
+  transform: translateX(0);
+}
+
+.demo-leave-to {
+  color: yellow;
+  font-size: 30px;
+  transform: translateX(100%);
+}
+
+.fade2-enter-active, .fade2-leave-active {
+  transition: all .5s;
+}
+
+.fade2-enter, .fade2-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}

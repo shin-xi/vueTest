@@ -1,6 +1,7 @@
 <template>
     <div>
         <edgeCaseChild ref="child"/>
+        <div v-once>{{name}}</div>
     </div>
 </template>
 
@@ -14,7 +15,8 @@ export default {
   },
   data () {
     return {
-      foo: 1
+      foo: 1,
+      name: 'vue'
     }
   },
   computed: {
@@ -36,6 +38,10 @@ export default {
   },
   mounted () {
     console.log(this.$refs.child.case)
+    setTimeout(() => {
+      this.name = 'shino'
+      console.log(this)
+    }, 1000)
   }
 }
 </script>

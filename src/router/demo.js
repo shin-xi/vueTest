@@ -10,6 +10,8 @@ import dynCom from '@/components/Demo/dynCom'
 import asyCom from '@/components/Demo/asyCom'
 import edgeCase from '@/components/Demo/edgeCase'
 import recCom from '@/components/Demo/recCom'
+import treeCom from '@/components/Demo/treeCom'
+import trans from '@/components/Demo/transition'
 
 const demo = [
   {
@@ -59,6 +61,14 @@ const demo = [
       {
         path: 'recCom',
         component: recCom
+      },
+      {
+        path: 'treeCom',
+        component: treeCom
+      },
+      {
+        path: 'trans',
+        component: trans
       }
     ]
   }
