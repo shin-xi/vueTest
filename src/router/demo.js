@@ -12,6 +12,7 @@ import edgeCase from '@/components/Demo/edgeCase'
 import recCom from '@/components/Demo/recCom'
 import treeCom from '@/components/Demo/treeCom'
 import trans from '@/components/Demo/transition'
+import transList from '@/components/Demo/transList'
 
 const demo = [
   {
@@ -69,6 +70,10 @@ const demo = [
       {
         path: 'trans',
         component: trans
+      },
+      {
+        path: 'transList',
+        component: transList
       }
     ]
   }

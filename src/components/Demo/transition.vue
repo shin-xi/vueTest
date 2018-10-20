@@ -10,27 +10,14 @@
             <p v-if="show">hello</p>
         </transition>
 
-        <transition name="fade" :duration="5000"
-                    @before-enter="beforeEnter"
-                    @enter="enter"
-                    @after-enter="afterEnter"
-                    @enter-cancelled="enterCancelled"
-
-                    @before-leave="beforeLeave"
-                    @leave="leave"
-                    @after-leave="afterLeave"
-                    @leave-cancelled="leaveCancelled">
-            <p v-if="show">hello</p>
-        </transition>
-
         <button @click="show4 = !show4">
             Toggle
         </button>
 
         <transition
-                @before-enter="beforeEnter1"
-                @enter="enter1"
-                @leave="leave1"
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @leave="leave"
                 :css="false">
             <p v-if="show4">
                 Demo
@@ -91,55 +78,15 @@ export default {
     }
   },
   methods: {
-    // --------
-    // 进入中
-    // --------
-
     beforeEnter: function (el) {
-      // ...
-    },
-    // 当与 CSS 结合使用时
-    // 回调函数 done 是可选的
-    enter: function (el, done) {
-      // ...
-      done()
-    },
-    afterEnter: function (el) {
-      // ...
-    },
-    enterCancelled: function (el) {
-      // ...
-    },
-
-    // --------
-    // 离开时
-    // --------
-
-    beforeLeave: function (el) {
-      // ...
-    },
-    // 当与 CSS 结合使用时
-    // 回调函数 done 是可选的
-    leave: function (el, done) {
-      // ...
-      done()
-    },
-    afterLeave: function (el) {
-      // ...
-    },
-    // leaveCancelled 只用于 v-show 中
-    leaveCancelled: function (el) {
-      // ...
-    },
-    beforeEnter1: function (el) {
       el.style.opacity = 0
       el.style.transformOrigin = 'left'
     },
-    enter1: function (el, done) {
+    enter: function (el, done) {
       Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
       Velocity(el, { fontSize: '1em' }, { complete: done })
     },
-    leave1: function (el, done) {
+    leave: function (el, done) {
       Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 600 })
       Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
       Velocity(el, {

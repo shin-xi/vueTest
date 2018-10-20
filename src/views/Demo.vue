@@ -29,7 +29,8 @@ export default {
         { to: '/demo/edgeCase', description: '边界情况' },
         { to: '/demo/recCom', description: '递归组件' },
         { to: '/demo/treeCom', description: '递归循环组件' },
-        { to: '/demo/trans', description: '过渡' }
+        { to: '/demo/trans', description: '过渡' },
+        { to: '/demo/transList', description: '列表和状态过渡' }
       ]
     }
   }
