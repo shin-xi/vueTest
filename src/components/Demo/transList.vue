@@ -6,6 +6,7 @@
             <button @click="remove">Remove</button>
             <button @click="push">Push</button>
             <button @click="shift">Shift</button>
+            <button @click="refresh">refresh</button>
         </div>
 
         <div class="demo">
@@ -87,8 +88,14 @@ export default {
       this.items.push(this.nextNum)
       this.nextNum++
     },
-    shuffle: function () {
+    shuffle () {
       this.items = _.shuffle(this.items)
+    },
+    refresh () {
+      // this.items = []
+      // this.items = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      this.shift()
+      this.push()
     }
   }
 }
@@ -128,7 +135,12 @@ export default {
         position: absolute;
     }
 
-    .list-diy-enter, .list-diy-leave-to {
+    .list-diy-enter {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    .list-diy-leave-to {
         opacity: 0;
         transform: translateX(-100%);
     }
