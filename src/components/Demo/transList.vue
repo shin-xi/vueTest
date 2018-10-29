@@ -19,7 +19,7 @@
 
         <div class="demo">
             <transition-group name="flip-list" tag="ul">
-                <li v-for="item in items" v-bind:key="item">
+                <li v-for="item in items" :key="item">
                     {{ item }}
                 </li>
             </transition-group>
