@@ -1,5 +1,7 @@
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 module.exports = {
-  baseUrl: '/',
+  baseUrl: './',
   pages: {
     index: {
       // page 的入口
@@ -26,6 +28,29 @@ module.exports = {
       sass: {
         data: `@import "src/style/app.scss";`
       }
+    }
+  },
+  chainWebpack: config => {
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 1 }))
+  },
+  configureWebpack: {
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            compress: {
+              warnings: false,
+              drop_console: true, // console
+              drop_debugger: false,
+              pure_funcs: ['console.log']// 移除console
+            }
+          }
+        })
+      ]
     }
   }
 }
