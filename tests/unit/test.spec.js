@@ -2,8 +2,8 @@
 // 同时导入你要测试的组件
 import { expect } from 'chai'
 import { mount } from '@vue/test-utils'
-import Counter from '@/components/counter'
 import Vue from 'vue'
+import Counter from '@/components/Test/counter'
 
 describe('计数器', () => {
   // 现在挂载组件，你便得到了这个包裹器
