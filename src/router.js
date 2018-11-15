@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Demo from '@/router/demo'
 import demoRouter from '@/router/demoRouter'
 import demoVuex from '@/router/demoVuex'
+import swiper from '@/components/Swiper/container'
 
 Vue.use(Router)
 
@@ -25,7 +26,11 @@ const router = new Router({
     },
     ...Demo,
     ...demoRouter,
-    ...demoVuex
+    ...demoVuex,
+    {
+      path: '/swiper',
+      component: swiper
+    }
   ]
 })
 

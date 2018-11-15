@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
+console.log(VueAwesomeSwiper, 123)
+
 Vue.config.productionTip = false
 
 new Vue({

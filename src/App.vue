@@ -5,7 +5,8 @@
             <router-link to="/about">About</router-link> |
             <router-link to="/demo">Demo</router-link> |
             <router-link to="/router">Router</router-link> |
-            <router-link to="/vuex">Vuex</router-link>
+            <router-link to="/vuex">Vuex</router-link> |
+            <router-link to="/swiper">Swiper</router-link>
         </div>
         <router-view/>
     </div>

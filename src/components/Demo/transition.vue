@@ -24,7 +24,7 @@
             </p>
         </transition>
 
-        <button v-on:click="show1 = !show1">
+        <button @click="show1 = !show1">
             Toggle
         </button>
 
