@@ -26,8 +26,9 @@ export default {
         slidesPerView: 3,
         spaceBetween: 30,
         loop: true,
+        // reverseDirection: true,
         autoplay: {
-          delay: 3000,
+          delay: 1000,
           disableOnInteraction: false
         }
       }
@@ -44,7 +45,8 @@ export default {
     // console.log('this is current swiper instance object', this.swiper)
     // this.swiper.slideTo(3, 1000, false)
     this.swiper.on('slideChange', () => {
-      // console.log(this.swiper.activeIndex - this.swiper.loopedSlides)
+      // console.log(this.swiper.activeIndex)
+      console.log(this.swiper.activeIndex - this.swiper.loopedSlides)
       const index = this.swiper.activeIndex - this.swiper.loopedSlides
       let indexReal = index
       if (index < 0) {
