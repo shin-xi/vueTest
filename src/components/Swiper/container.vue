@@ -6,18 +6,24 @@
         <div class="right">
             <right :index.sync="index" :right="right"/>
         </div>
+
+        <div>
+            <verticalText/>
+        </div>
     </div>
 </template>
 
 <script>
 import left from './left'
 import right from './right'
+import verticalText from './verticalText'
 
 export default {
   name: 'container',
   components: {
     left,
-    right
+    right,
+    verticalText
   },
   data () {
     return {
