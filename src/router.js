@@ -6,6 +6,7 @@ import demoRouter from '@/router/demoRouter'
 import demoVuex from '@/router/demoVuex'
 import swiper from '@/components/Swiper/container'
 import element from '@/router/element'
+import draft from '@/router/draft'
 
 Vue.use(Router)
 
@@ -32,7 +33,8 @@ const router = new Router({
       path: '/swiper',
       component: swiper
     },
-    ...element
+    ...element,
+    ...draft
   ]
 })
 
