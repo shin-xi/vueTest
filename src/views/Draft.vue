@@ -17,7 +17,8 @@ export default {
   data () {
     return {
       link: [
-        { to: '/draft/father', description: '居民组件' }
+        { to: '/draft/father', description: '居民组件' },
+        { to: '/draft/amap', description: '高德地图' }
       ]
     }
   }
