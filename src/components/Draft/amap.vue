@@ -13,50 +13,54 @@ export default {
       map: null,
       center: [121.461642, 31.206598],
       overlayGroup: null,
-      a: 0
+      a: 0,
+      marker: null
     }
   },
-  methods: {
-    addMarker () {
-      // this.overlayGroup.getOverlays() && this.map.remove(this.overlayGroup.getOverlays())
-      this.overlayGroup && this.overlayGroup.clearOverlays()
+  watch: {
+    marker (nv) {
+      if (nv) {
+        this.overlayGroup && this.overlayGroup.clearOverlays()
 
-      const marker = new AMap.Marker({
-        icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',
-        position: this.center
-      })
+        nv.forEach((v) => {
+          const marker = new AMap.Marker({
+            position: new AMap.LngLat(v.lng, v.lat),
+            icon: 'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png'
+          })
 
-      this.overlayGroup.addOverlay(marker)
+          marker.on('click', () => alert('点击了marker'))
 
-      marker.on('click', (e) => {
-        alert('点击了marker')
-      })
-
-      if (this.a >= 1) {
-        this.overlayGroup.hide()
+          this.overlayGroup.addOverlay(marker)
+        })
       }
-
-      this.a++
     }
   },
   mounted () {
     this.map = new AMap.Map(this.$refs.map, {
-      center: this.center,
-      zoom: 18,
-      pitch: 55,
       viewMode: '3D',
-      mapStyle: 'amap://styles/d231bda4ae877eaec0686c62f4e34a33'// 样式URL
+      zooms: [16, 18],
+      zoom: 17,
+      pitch: 45,
+      center: this.center,
+      zoomEnable: true,
+      features: ['bg', 'point', 'road'],
+      mapStyle: 'amap://styles/d231bda4ae877eaec0686c62f4e34a33' // 样式URL
     })
 
     this.overlayGroup = new AMap.OverlayGroup()
     this.overlayGroup.setMap(this.map)
 
-    this.map.on('complete', this.addMarker)
-    setTimeout(this.addMarker, 3000)
-
     this.map.on('click', (e) => {
       alert('点击了地图')
     })
+
+    this.marker = [
+      { lng: 121.461642, lat: 31.206598 }
+    ]
+
+    setTimeout(() => {
+      this.overlayGroup.hide()
+    }, 3000)
   }
 }
 </script>
