@@ -2,7 +2,9 @@
     <div class="container">
         <el-button @click="resetDateFilter">清除日期过滤器</el-button>
         <el-button @click="clearFilter">清除所有过滤器</el-button>
-        <el-table ref="filterTable" :data="tableData" style="width: 100%">
+
+        <el-table ref="filterTable" :data="tableData" style="width: 100%" @row-click="rowClick" highlight-current-row>
+            <!--<el-table-column type="index" width="50"></el-table-column>-->
             <el-table-column prop="date" label="日期" sortable width="180" column-key="date"
                              :filters="[{text: '2016-05-01', value: '2016-05-01'}, {text: '2016-05-02', value: '2016-05-02'}, {text: '2016-05-03', value: '2016-05-03'}, {text: '2016-05-04', value: '2016-05-04'}]"
                              :filter-method="filterHandler">
@@ -72,7 +74,17 @@ export default {
     filterHandler (value, row, column) {
       const property = column['property']
       return row[property] === value
+    },
+    rowClick (row, event, column) {
+      console.log(row)
+      // console.log(event)
+      // console.log(column)
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.$refs.filterTable.setCurrentRow(this.tableData[1])
+    }, 2000)
   }
 }
 </script>
