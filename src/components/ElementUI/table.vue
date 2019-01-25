@@ -93,5 +93,11 @@ export default {
     .container {
         width: 800px;
         height: 600px;
+
+        /deep/ {
+            .el-table__row {
+                cursor: pointer;
+            }
+        }
     }
 </style>
