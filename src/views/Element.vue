@@ -23,7 +23,8 @@ export default {
         { to: '/element/input', description: '输入框' },
         { to: '/element/cascader', description: '级联选择器' },
         { to: '/element/table', description: '表格' },
-        { to: '/element/loading', description: '加载' }
+        { to: '/element/loading', description: '加载' },
+        { to: '/element/dialog', description: '对话框' }
       ]
     }
   }

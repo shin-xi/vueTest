@@ -6,6 +6,7 @@ import input from '@/components/ElementUI/input'
 import cascader from '@/components/ElementUI/cascader'
 import table from '@/components/ElementUI/table'
 import loading from '@/components/ElementUI/loading'
+import dialog from '@/components/ElementUI/dialog'
 
 const demoVuexRouter = [
   {
@@ -39,6 +40,10 @@ const demoVuexRouter = [
       {
         path: 'loading',
         component: loading
+      },
+      {
+        path: 'dialog',
+        component: dialog
       }
     ]
   }
