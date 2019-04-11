@@ -4,6 +4,8 @@
             <template v-for="(item,index) of right">
                 <swiper-slide :key="index">right {{item}}</swiper-slide>
             </template>
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
     </div>
 </template>
@@ -27,9 +29,13 @@ export default {
         spaceBetween: 30,
         loop: true,
         // reverseDirection: true,
-        autoplay: {
-          delay: 1000,
-          disableOnInteraction: false
+        // autoplay: {
+        //   delay: 1000,
+        //   disableOnInteraction: false
+        // }
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }
       }
     }
