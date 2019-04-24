@@ -1,6 +1,7 @@
 import Draft from '@/views/Draft'
 import father from '@/components/Draft/father'
 import amap from '@/components/Draft/amap'
+import trySomething from '@/components/Draft/trySomething'
 
 const draft = [
   {
@@ -14,6 +15,10 @@ const draft = [
       {
         path: 'amap',
         component: amap
+      },
+      {
+        path: 'trySomething',
+        component: trySomething
       }
     ]
   }
