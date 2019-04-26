@@ -67,6 +67,9 @@ export default {
       },
       deep: true
     }
+  },
+  mounted () {
+    console.log(123)
   }
 }
 </script>

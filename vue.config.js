@@ -1,4 +1,5 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
   baseUrl: './',
@@ -36,21 +37,29 @@ module.exports = {
       .use('url-loader')
       .loader('url-loader')
       .tap(options => Object.assign(options, { limit: 1 }))
-  },
-  configureWebpack: {
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            compress: {
-              warnings: false,
-              drop_console: true, // console
-              drop_debugger: false,
-              pure_funcs: ['console.log']// 移除console
-            }
+
+    config.optimization.minimizer([
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            warnings: false,
+            drop_console: true, // console
+            drop_debugger: false,
+            pure_funcs: ['console.log']// 移除console
           }
-        })
-      ]
+        }
+      })
+    ])
+  },
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      return {
+        plugins: [new CompressionPlugin({
+          test: /\.js$|\.html$|\.css/, // 匹配文件名
+          threshold: 10240, // 对超过10k的数据进行压缩
+          deleteOriginalAssets: false // 是否删除原文件
+        })]
+      }
     }
   }
 }
