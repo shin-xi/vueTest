@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div>child</div>
 </template>
 
 <script>
