@@ -24,8 +24,11 @@ export default {
   },
   methods: {
     updateFoo () {
-      this.foo.index++
-      this.foo = { ...this.foo }
+      const index = this.foo.index + 1
+      this.foo = { // 触发一次更新
+        index,
+        name: 'foo'
+      }
     }
   },
   watch: {

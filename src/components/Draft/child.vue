@@ -24,7 +24,7 @@ export default {
   watch: {
     fooCopy: {
       handler (nv, ov) {
-        console.log((nv && nv.index) || null, (ov && ov.index) || null)
+        // console.log((nv && nv.index) || null, (ov && ov.index) || null)
         this.foo = nv
       },
       deep: true,
