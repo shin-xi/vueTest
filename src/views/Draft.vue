@@ -19,7 +19,8 @@ export default {
       link: [
         { to: '/draft/father', description: '居民组件' },
         { to: '/draft/amap', description: '高德地图' },
-        { to: '/draft/trySomething', description: '试验' }
+        { to: '/draft/trySomething', description: '试验' },
+        { to: '/draft/cities', description: '城市选择' }
       ]
     }
   }
