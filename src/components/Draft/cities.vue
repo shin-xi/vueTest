@@ -6,20 +6,32 @@
                      @change="handleChange"
                      clearable>
         </el-cascader>
+        <hr>
+        <div class="place">
+            <div class="tab">地区选择：</div>
+            <regionPIck :regionData="regionDataPlus" v-model="currentValue"/>
+        </div>
     </div>
 </template>
 
 <script>
-import { provinceAndCityData } from 'element-china-area-data'
+import { provinceAndCityData, regionDataPlus } from 'element-china-area-data'
+import regionPIck from './regionPick'
 
-console.log(provinceAndCityData)
+// console.log(provinceAndCityData)
 
 export default {
   name: 'cities',
+  components: {
+    regionPIck
+  },
   data () {
     return {
       options: provinceAndCityData.filter(v => v.label !== '北京市'),
-      selectedOptions: []
+      selectedOptions: [],
+      regionDataPlus,
+      currentLabel: [],
+      currentValue: []
     }
   },
   computed: {
@@ -37,6 +49,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .place {
+        display: flex;
 
+        .tab {
+            width: 300px;
+        }
+    }
 </style>

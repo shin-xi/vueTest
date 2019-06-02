@@ -3,6 +3,7 @@ import father from '@/components/Draft/father'
 import amap from '@/components/Draft/amap'
 import trySomething from '@/components/Draft/trySomething'
 import cities from '@/components/Draft/cities'
+import excel from '@/components/Draft/excel'
 
 const draft = [
   {
@@ -24,6 +25,10 @@ const draft = [
       {
         path: 'cities',
         component: cities
+      },
+      {
+        path: 'excel',
+        component: excel
       }
     ]
   }
