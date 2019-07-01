@@ -11,6 +11,11 @@
             <div class="tab">地区选择：</div>
             <regionPIck :regionData="regionDataPlus" v-model="currentValue"/>
         </div>
+        <hr>
+        <div class="place">
+            <div class="tab">资产类型：</div>
+            <regionPIck :regionData="assetTypeOption" v-model="assetValue"/>
+        </div>
     </div>
 </template>
 
@@ -23,7 +28,7 @@ import regionPIck from './regionPick'
 export default {
   name: 'cities',
   components: {
-    regionPIck
+    regionPIck,
   },
   data () {
     return {
@@ -31,7 +36,20 @@ export default {
       selectedOptions: [],
       regionDataPlus,
       currentLabel: [],
-      currentValue: []
+      currentValue: [],
+      assetTypeOption: [
+        { 'value': 1, 'label': '住宅' },
+        { 'value': 2, 'label': '别墅' },
+        { 'value': 3, 'label': '商铺' },
+        { 'value': 4, 'label': '写字楼' },
+        { 'value': 5, 'label': '工业房地产' },
+        { 'value': 6, 'label': '土地' },
+        { 'value': 7, 'label': '厂房' },
+        { 'value': 8, 'label': '其它' },
+        { 'value': 9, 'label': '酒店' },
+        { 'value': 10, 'label': '综合' }
+      ],
+      assetValue: []
     }
   },
   computed: {
@@ -54,7 +72,8 @@ export default {
         display: flex;
 
         .tab {
-            width: 300px;
+            width: 200px;
+            font-size: 12px;
         }
     }
 </style>

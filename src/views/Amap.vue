@@ -5,7 +5,7 @@
             <router-link :key="`link${index}`" :to="item.to">{{item.description}}</router-link>
         </template>
 
-        <div style="margin-top: 50px;">
+        <div style="margin-top: 20px;width: 800px;height: 400px;">
             <router-view/>
         </div>
     </div>
@@ -13,16 +13,11 @@
 
 <script>
 export default {
-  name: 'Draft',
+  name: 'Amap',
   data () {
     return {
       link: [
-        { to: '/draft/father', description: '居民组件' },
-        { to: '/draft/amap', description: '高德地图' },
-        { to: '/draft/trySomething', description: '试验' },
-        { to: '/draft/cities', description: '城市选择' },
-        { to: '/draft/excel', description: 'excel' },
-        { to: '/draft/cropper', description: '图片裁剪' }
+        { to: '/amap/heatmap', description: '热力图' }
       ]
     }
   }

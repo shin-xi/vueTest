@@ -1,16 +1,17 @@
 <template>
     <div class="contain_regionPick">
-        <div class="regions" v-for="(item,index) of regionData" :key="index" @click.self="pickup(item,index)"
-             :style="{color:(showIndex!==-1  && index === showIndex)? 'red':'#000',pointEvent:'none'}">
-            {{item.label}}
-            <template v-if="item.children">
-                <span v-if="showIndex!==-1  && index === showIndex">-</span>
-                <span v-else>+</span>
-            </template>
+        <div class="regions" v-for="(item,index) of regionData" :key="index">
+            <div class="regionItem" :class="{active:showIndex!==-1 && index === showIndex}">
+                <span @click="pickup(item,index)">{{ item.label }}</span>
+                <template v-if="item.children">
+                    <span v-if="showIndex!==-1 && index === showIndex">-</span>
+                    <span v-else>+</span>
+                </template>
+            </div>
 
             <template v-if="index === showIndex">
-                <regionPick class="inner" v-if="item.children" :currentLabel="currentValueCopy" :index="curIndex + 1"
-                            :style="{marginLeft:`${-(index%4)*250}px`}"
+                <regionPick class="inner" v-if="item.children" :currentValue="currentValueCopy" :currentLabel="currentLabelCopy" :index="curIndex + 1"
+                            :style="{marginLeft:`${-(index%6)*100}px`,zIndex:curIndex+1}"
                             v-model="currentValueCopy"
                             :regionData="item.children"/>
             </template>
@@ -46,12 +47,18 @@ export default {
       default () {
         return []
       }
+    },
+    currentLabel: {
+      type: Array,
+      default () {
+        return []
+      }
     }
   },
   data () {
     return {
-      currentLabelCopy: [],
       currentValueCopy: [],
+      currentLabelCopy: [],
       curIndex: this.index,
       showIndex: -1
     }
@@ -67,6 +74,20 @@ export default {
     currentValueCopy: {
       handler (nv) {
         this.$emit('pickupValue', nv)
+      },
+      deep: true,
+      immediate: true
+    },
+    currentLabel: {
+      handler (nv) {
+        this.currentLabelCopy = nv
+      },
+      deep: true,
+      immediate: true
+    },
+    currentLabelCopy: {
+      handler (nv) {
+        this.$emit('pickupLabel', nv)
       },
       deep: true,
       immediate: true
@@ -103,24 +124,36 @@ export default {
         display: flex;
         flex-wrap: wrap;
         transition: all 0.5s;
-        width: 1000px;
+        width: 1100px;
         z-index: 1;
+        font-size: 12px;
+        padding: 2px 4px;
+        position: relative;
 
         .regions {
-            padding-left: 50px;
-            margin-top: 5px;
-            width: 200px;
+            margin: 0 5px;
+            width: 120px;
             cursor: pointer;
             line-height: 1.5;
             transition: all 0.5s;
             position: relative;
+            box-sizing: border-box;
+
+            .regionItem {
+                padding: 2px 4px;
+            }
 
             > .contain_regionPick.inner {
-                background: greenyellow;
                 display: flex;
                 flex-wrap: wrap;
                 transition: all 0.5s;
+                margin: 5px 0;
             }
+        }
+
+        .active {
+            background-color: #CD0F32;
+            color: #fff;
         }
     }
 </style>

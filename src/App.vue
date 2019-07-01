@@ -8,7 +8,8 @@
             <router-link to="/vuex">Vuex</router-link> |
             <router-link to="/swiper">Swiper</router-link> |
             <router-link to="/element">ElementUI</router-link> |
-            <router-link to="/draft">draft</router-link>
+            <router-link to="/draft">draft</router-link> |
+            <router-link to="/amap">amap</router-link>
         </div>
         <router-view/>
     </div>

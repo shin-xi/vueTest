@@ -4,6 +4,7 @@ import amap from '@/components/Draft/amap'
 import trySomething from '@/components/Draft/trySomething'
 import cities from '@/components/Draft/cities'
 import excel from '@/components/Draft/excel'
+import cropper from '@/components/Draft/cropper'
 
 const draft = [
   {
@@ -29,6 +30,10 @@ const draft = [
       {
         path: 'excel',
         component: excel
+      },
+      {
+        path: 'cropper',
+        component: cropper
       }
     ]
   }
