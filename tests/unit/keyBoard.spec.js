@@ -28,11 +28,11 @@ describe('键盘事件测试', () => {
     expect(wrapper.vm.quantity).to.eql(0)
   })
 
-  it('魔术字符 "a" 键将数量设置为 13', () => {
-    const wrapper = shallowMount(keyBoard)
-    wrapper.trigger('keydown', {
-      which: 65
-    })
-    expect(wrapper.vm.quantity).to.eql(13)
-  })
+  // it('魔术字符 "a" 键将数量设置为 13', () => {
+  //   const wrapper = shallowMount(keyBoard)
+  //   wrapper.trigger('keydown', {
+  //     which: 65
+  //   })
+  //   expect(wrapper.vm.quantity).to.eql(13)
+  // })
 })
