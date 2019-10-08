@@ -1,18 +1,29 @@
 <template>
     <div class="container">
         <div class="block">
-            <chinaAreaData/>
+<!--            <chinaAreaData-->
+<!--                    common-service-url="http://10.20.102.1:7001/js/chinaAreaData.js"-->
+<!--                    :chinaAreaDataCodes.sync="chinaAreaDataCodes"/>-->
+            <search/>
         </div>
     </div>
 </template>
 
 <script>
-import chinaAreaData from './components/chinaAreaData'
+// import chinaAreaData from './components/chinaAreaData'
+// import chinaAreaData from 'ws-china-area-data/components/chinaAreaData'
+import search from './components/search'
 
 export default {
   name: 'myCascader',
   components: {
-    chinaAreaData
+    // chinaAreaData,
+    search
+  },
+  data () {
+    return {
+      chinaAreaDataCodes: []
+    }
   }
 }
 </script>
