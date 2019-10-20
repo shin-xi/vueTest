@@ -9,6 +9,7 @@
 
 <script>
 /* eslint-disable no-undef */
+import { cloneDeep } from 'lodash'
 const load = require('load-script') // script动态加载
 
 export default {
@@ -36,9 +37,15 @@ export default {
         return []
       }
     },
-    hasAll: {
-      type: Boolean,
-      default: true
+    allOption: {
+      type: Array,
+      default () {
+        return ['全部', '全部', '全部']
+      }
+    },
+    level: {
+      type: Number,
+      default: 3
     }
   },
   data () {
@@ -141,27 +148,62 @@ export default {
     },
     transCodeToText (obj, data) {
       data.forEach(v => {
-        obj[v.value] = v.label
+        if (v.value) {
+          obj[v.value] = v.label
+        }
         if (v.children) {
           this.transCodeToText(obj, v.children)
         }
       })
     },
-    addAll (data) {
-      data.forEach(v => {
-        if (v.hasOwnProperty('children')) {
-          v.children = [
-            {
-              label: '全部',
-              value: ''
-            },
-            ...v.children
-          ]
+    processData (data) {
+      // console.log(this.allOption)
+      console.log(this.level)
+      let _data = cloneDeep(data)
+      if (this.allOption[0]) {
+        _data = [
+          {
+            label: this.allOption[0],
+            value: ''
+          },
+          ..._data
+        ]
+      }
 
-          this.addAll(v.children)
+      _data.forEach(v => {
+        if (this.allOption[1]) {
+          if (this.level === 1) {
+            delete v.children
+          }
+
+          if (v.hasOwnProperty('children')) {
+            v.children = [
+              {
+                label: this.allOption[1],
+                value: ''
+              },
+              ...v.children
+            ]
+            v.children.forEach(vv => {
+              if (this.allOption[2]) {
+                if (this.level === 2) {
+                  delete vv.children
+                }
+                if (vv.hasOwnProperty('children')) {
+                  vv.children = [
+                    {
+                      label: this.allOption[2],
+                      value: ''
+                    },
+                    ...vv.children
+                  ]
+                }
+              }
+            })
+          }
         }
       })
-      // return data
+      return _data
     }
   },
   watch: {
@@ -176,14 +218,21 @@ export default {
     chinaAreaDataCodes: {
       handler (nv) {
         if (nv.length > 0) {
-          this.$emit('update:chinaAreaDataCodes', this.chinaAreaDataCodes)
           if (this.CodeToText) {
             const chinaAreaDataNames = []
             this.chinaAreaDataCodes.forEach(v => {
-              chinaAreaDataNames.push(this.CodeToText[v])
+              chinaAreaDataNames.push(this.CodeToText[v] || '')
             })
-            // console.log(chinaAreaDataNames)
-            this.$emit('update:chinaAreaDataNames', chinaAreaDataNames)
+            console.log(chinaAreaDataNames)
+
+            const municipalities = new Set(['上海市', '北京市', '天津市'])
+            if (municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
+              this.$emit('update:chinaAreaDataNames', [chinaAreaDataNames[0], chinaAreaDataNames[0]])
+              this.$emit('update:chinaAreaDataCodes', [this.chinaAreaDataCodes[0], this.chinaAreaDataCodes[0].slice(0, 3) + '100000000'])
+            } else {
+              this.$emit('update:chinaAreaDataNames', chinaAreaDataNames)
+              this.$emit('update:chinaAreaDataCodes', this.chinaAreaDataCodes)
+            }
           }
         }
       },
@@ -204,12 +253,10 @@ export default {
           console.log('加载失败')
         } else {
           console.log(script.src)
-          provinceAndCityAndDistrictData.forEach(v => {
+          provinceAndCityAndDistrictData.forEach(v => { // 排序
             this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
           })
-          if (this.hasAll) {
-            this.addAll(this.provinceAndCityAndDistrictData)
-          }
+          this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
           this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
           this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
           this.$nextTick(() => {
@@ -221,6 +268,7 @@ export default {
       provinceAndCityAndDistrictData.forEach(v => { // 排序
         this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
       })
+      this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
       this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
       this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
       this.$nextTick(() => {

@@ -1,13 +1,22 @@
 <template>
     <div>
         <chinaAreaData
-                common-service-url="http://10.20.102.1:7001/js/chinaAreaData.js"
-                :chinaAreaDataCodes.sync="chinaAreaDataCodes"/>
+                common-service-url="http://10.20.100.228:5050/pre/region_code/static/chinaAreaDataCountyAll_2018.js"
+                :chinaAreaDataCodes.sync="chinaAreaDataCodes"
+                :chinaAreaDataNames.sync="chinaAreaDataNames"/>
     </div>
 </template>
 
 <script>
 import chinaAreaData from '../components/chinaAreaData'
+// import chinaAreaData from 'ws-china-area-data/components/chinaAreaData'
+// import { transCodeToText } from 'ws-china-area-data/utils/index'
+
+// setInterval(() => {
+//   if (window.provinceAndCityAndDistrictData) {
+//     console.log(transCodeToText(window.provinceAndCityAndDistrictData))
+//   }
+// }, 2000)
 
 export default {
   name: 'search',
@@ -16,7 +25,8 @@ export default {
   },
   data () {
     return {
-      chinaAreaDataCodes: []
+      chinaAreaDataCodes: [],
+      chinaAreaDataNames: []
     }
   }
 }

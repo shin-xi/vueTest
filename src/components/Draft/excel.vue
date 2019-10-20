@@ -2,12 +2,15 @@
     <div>
         <downExcel :excelData="processData(company, tableData)"/>
         <downExcel :excelData="testData"/>
+        <el-button type="primary" @click="getExcel">excel下载get方式</el-button>
     </div>
 </template>
 
 <script>
 import { CodeToText } from 'element-china-area-data'
 import downExcel from './downExcel'
+import axios from 'axios'
+import { saveAs } from 'file-saver'
 
 export default {
   name: 'excel',
@@ -143,8 +146,23 @@ export default {
           v.trdContactorAddr
         ])
       })
-      console.log(data)
+      // console.log(data)
       return data
+    },
+    getExcel () {
+      // get 方式ok
+      // window.open('http://localhost:3000/getExcel', '_blank')
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/getExcel',
+        responseType: 'blob'
+      }).then(res => {
+        console.log(res)
+        saveAs(new Blob([res.data], { type: res.headers['content-type'] }), 'demo.xlsx')
+        // saveAs('http://localhost:3000/getExcel')
+        // const file = new File([res.data], 'demo.xlsx', { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+        // saveAs(file)
+      })
     }
   }
 }
