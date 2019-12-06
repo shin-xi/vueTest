@@ -1,8 +1,10 @@
 <template>
     <el-cascader v-if="provinceAndCityAndDistrictData.length && commonServiceUrl"
+                 :placeholder="placeholder"
                  calss="cascader_chinaAreaData"
                  :style="{width: `${width}px`}"
                  change-on-select
+                 :props="{ checkStrictly: checkStrictly }"
                  v-model="chinaAreaDataCodes"
                  :options="provinceAndCityAndDistrictData"/>
 </template>
@@ -46,12 +48,17 @@ export default {
     level: {
       type: Number,
       default: 3
+    },
+    checkStrictly: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       provinceAndCityAndDistrictData: [],
       chinaAreaDataCodes: [],
+      chinaAreaDataNames: [],
       CodeToText: {},
       provinceIndex: {
         '北京市': 3, // 110000
@@ -95,18 +102,19 @@ export default {
           if (!window.AMap) {
             load(`https://webapi.amap.com/maps?v=1.4.10&key=a88b51904003ddd948ab7b2c454c8524`, (err, script) => {
               if (err) {
-                console.log('加载失败')
                 reject(new Error('加载失败'))
               } else {
-                console.log(script.src)
-                console.log('ok')
+                // console.log(script.src)
+                // console.log('ok')
                 resolve()
               }
             })
           } else {
-            console.log('高德地图已加载')
+            // console.log('高德地图已加载')
             resolve()
           }
+        } else {
+          resolve()
         }
       })
     },
@@ -123,7 +131,10 @@ export default {
             citySearch.getLocalCity((status, result) => {
               if (status === 'complete' && result.info === 'OK') {
                 // 查询成功，result即为当前所在城市信息
+                // console.log(result)
                 const { province, city } = result
+                // const province = '江苏省'
+                // const city = '南京市'
                 if (provinceAndCityAndDistrictData) {
                   const provinceOpt = provinceAndCityAndDistrictData.find(v => v.label === province)
                   chinaAreaDataCodes.push(provinceOpt.value)
@@ -134,7 +145,7 @@ export default {
                       chinaAreaDataCodes.push(provinceOpt.children[0].value)
                     }
                   } else {
-                    const cityOpt = province.children.find(v => v.label === city)
+                    const cityOpt = provinceOpt.children.find(v => v.label === city)
                     chinaAreaDataCodes.push(cityOpt.value)
                   }
                   // console.log(chinaAreaDataCodes)
@@ -157,8 +168,6 @@ export default {
       })
     },
     processData (data) {
-      // console.log(this.allOption)
-      console.log(this.level)
       let _data = cloneDeep(data)
       if (this.allOption[0]) {
         _data = [
@@ -206,6 +215,19 @@ export default {
       return _data
     }
   },
+  computed: {
+    placeholder () {
+      if (this.chinaAreaDataNames.length > 0) {
+        if (this.chinaAreaDataNames.length === 1) {
+          return this.chinaAreaDataNames[0]
+        } else {
+          return this.chinaAreaDataNames.join('/')
+        }
+      } else {
+        return '请选择'
+      }
+    }
+  },
   watch: {
     provinceAndCityAndDistrictData: {
       handler (nv) {
@@ -223,7 +245,8 @@ export default {
             this.chinaAreaDataCodes.forEach(v => {
               chinaAreaDataNames.push(this.CodeToText[v] || '')
             })
-            console.log(chinaAreaDataNames)
+            // console.log(chinaAreaDataNames)
+            this.chinaAreaDataNames = chinaAreaDataNames
 
             const municipalities = new Set(['上海市', '北京市', '天津市'])
             if (municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
@@ -250,9 +273,9 @@ export default {
       }
       load(`${this.commonServiceUrl}${cache}`, (err, script) => {
         if (err) {
-          console.log('加载失败')
+          throw Error(err)
         } else {
-          console.log(script.src)
+          // console.log(script.src)
           provinceAndCityAndDistrictData.forEach(v => { // 排序
             this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
           })
