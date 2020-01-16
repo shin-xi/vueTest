@@ -92,7 +92,8 @@ export default {
         '青海省': 28, // 630000
         '宁夏回族自治区': 29, // 640000
         '新疆维吾尔自治区': 30 // 650000
-      }
+      },
+      municipalities: new Set(['上海市', '北京市', '天津市'])
     }
   },
   methods: {
@@ -105,7 +106,6 @@ export default {
                 reject(new Error('加载失败'))
               } else {
                 // console.log(script.src)
-                // console.log('ok')
                 resolve()
               }
             })
@@ -133,6 +133,7 @@ export default {
                 // 查询成功，result即为当前所在城市信息
                 // console.log(result)
                 const { province, city } = result
+                // 模拟默认定位到的地址
                 // const province = '江苏省'
                 // const city = '南京市'
                 if (provinceAndCityAndDistrictData) {
@@ -248,8 +249,7 @@ export default {
             // console.log(chinaAreaDataNames)
             this.chinaAreaDataNames = chinaAreaDataNames
 
-            const municipalities = new Set(['上海市', '北京市', '天津市'])
-            if (municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
+            if (this.municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
               this.$emit('update:chinaAreaDataNames', [chinaAreaDataNames[0], chinaAreaDataNames[0]])
               this.$emit('update:chinaAreaDataCodes', [this.chinaAreaDataCodes[0], this.chinaAreaDataCodes[0].slice(0, 3) + '100000000'])
             } else {
