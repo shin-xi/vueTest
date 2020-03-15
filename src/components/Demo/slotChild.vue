@@ -1,20 +1,20 @@
 <template>
-    <div>
-        <header>
-            <slot name="header"></slot>
-        </header>
-        <main>
-            <slot>default</slot>
-        </main>
-        <footer>
-            <slot name="footer"></slot>
-        </footer>
-    </div>
+  <div>
+    <header>
+      <slot name="header"/>
+    </header>
+    <main>
+      <slot>default</slot>
+    </main>
+    <footer>
+      <slot name="footer"/>
+    </footer>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'slot_child'
+  name: 'SlotChild'
 }
 </script>
 

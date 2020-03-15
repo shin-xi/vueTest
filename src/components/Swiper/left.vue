@@ -1,27 +1,27 @@
 <template>
-    <div class="left">
-        <swiper :options="swiperOption">
-            <template v-for="(item,index) of left">
-                <swiper-slide :key="index">left {{item}}</swiper-slide>
-            </template>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
-    </div>
+  <div class="left">
+    <swiper :options="swiperOption">
+      <template v-for="(item,index) of left">
+        <swiper-slide :key="index">left {{ item }}</swiper-slide>
+      </template>
+      <div slot="button-prev" class="swiper-button-prev"/>
+      <div slot="button-next" class="swiper-button-next"/>
+    </swiper>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'left',
+  name: 'Left',
   props: {
     left: {
       type: Array,
-      default () {
+      default() {
         return [0, 1, 2, 3, 4, 5]
       }
     }
   },
-  data () {
+  data() {
     return {
       swiperOption: {
         direction: 'horizontal',

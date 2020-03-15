@@ -1,22 +1,22 @@
 <template>
-    <div>
-        <el-cascader size="large"
-                     :options="_options"
-                     v-model="selectedOptions"
-                     @change="handleChange"
-                     clearable>
-        </el-cascader>
-        <hr>
-        <div class="place">
-            <div class="tab">地区选择：</div>
-            <regionPIck :regionData="regionDataPlus" v-model="currentValue"/>
-        </div>
-        <hr>
-        <div class="place">
-            <div class="tab">资产类型：</div>
-            <regionPIck :regionData="assetTypeOption" v-model="assetValue"/>
-        </div>
+  <div>
+    <el-cascader
+      :options="_options"
+      v-model="selectedOptions"
+      size="large"
+      clearable
+      @change="handleChange"/>
+    <hr>
+    <div class="place">
+      <div class="tab">地区选择：</div>
+      <regionPIck :regionData="regionDataPlus" v-model="currentValue"/>
     </div>
+    <hr>
+    <div class="place">
+      <div class="tab">资产类型：</div>
+      <regionPIck :regionData="assetTypeOption" v-model="assetValue"/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -26,11 +26,11 @@ import regionPIck from './regionPick'
 // console.log(provinceAndCityData)
 
 export default {
-  name: 'cities',
+  name: 'Cities',
   components: {
-    regionPIck,
+    regionPIck
   },
-  data () {
+  data() {
     return {
       options: provinceAndCityData.filter(v => v.label !== '北京市'),
       selectedOptions: [],
@@ -53,14 +53,14 @@ export default {
     }
   },
   computed: {
-    _options () {
+    _options() {
       const _options = JSON.parse(JSON.stringify(provinceAndCityData))
       _options.unshift({ 'label': '全部', value: 0 })
       return _options
     }
   },
   methods: {
-    handleChange (value) {
+    handleChange(value) {
       console.log(value)
     }
   }

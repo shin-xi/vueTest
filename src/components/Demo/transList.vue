@@ -1,59 +1,59 @@
 <template>
+  <div>
     <div>
-        <div>
-            <button @click="shuffle">Shuffle</button>
-            <button @click="add">Add</button>
-            <button @click="remove">Remove</button>
-            <button @click="push">Push</button>
-            <button @click="shift">Shift</button>
-            <button @click="refresh">refresh</button>
-        </div>
-
-        <div class="demo">
-            <transition-group name="list" tag="p">
-                <span v-for="item in items" :key="item" class="list-item">
-                  {{ item }}
-                </span>
-            </transition-group>
-        </div>
-
-        <div class="demo">
-            <transition-group name="flip-list" tag="ul">
-                <li v-for="item in items" :key="item">
-                    {{ item }}
-                </li>
-            </transition-group>
-        </div>
-
-        <div class="demo">
-            <transition-group name="list-complete" tag="p">
-                <span v-for="item in items" :key="item" class="list-complete-item">
-                  {{ item }}
-                </span>
-            </transition-group>
-        </div>
-
-        <div class="demo">
-            <transition-group name="list-diy" tag="p">
-                <span v-for="item in items" :key="item" class="list-complete-item">
-                  {{ item }}
-                </span>
-            </transition-group>
-        </div>
-
-        <div>
-            <input v-model.number="number" type="number" step="20">
-            <p>{{ animatedNumber }}</p>
-        </div>
+      <button @click="shuffle">Shuffle</button>
+      <button @click="add">Add</button>
+      <button @click="remove">Remove</button>
+      <button @click="push">Push</button>
+      <button @click="shift">Shift</button>
+      <button @click="refresh">refresh</button>
     </div>
+
+    <div class="demo">
+      <transition-group name="list" tag="p">
+        <span v-for="item in items" :key="item" class="list-item">
+          {{ item }}
+        </span>
+      </transition-group>
+    </div>
+
+    <div class="demo">
+      <transition-group name="flip-list" tag="ul">
+        <li v-for="item in items" :key="item">
+          {{ item }}
+        </li>
+      </transition-group>
+    </div>
+
+    <div class="demo">
+      <transition-group name="list-complete" tag="p">
+        <span v-for="item in items" :key="item" class="list-complete-item">
+          {{ item }}
+        </span>
+      </transition-group>
+    </div>
+
+    <div class="demo">
+      <transition-group name="list-diy" tag="p">
+        <span v-for="item in items" :key="item" class="list-complete-item">
+          {{ item }}
+        </span>
+      </transition-group>
+    </div>
+
+    <div>
+      <input v-model.number="number" type="number" step="20">
+      <p>{{ animatedNumber }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
 /* eslint-disable no-undef */
 
 export default {
-  name: 'transList',
-  data () {
+  name: 'TransList',
+  data() {
     return {
       items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       nextNum: 10,
@@ -62,36 +62,36 @@ export default {
     }
   },
   computed: {
-    animatedNumber () {
+    animatedNumber() {
       return this.tweenedNumber.toFixed(0)
     }
   },
   watch: {
-    number (newValue) {
+    number(newValue) {
       TweenLite.to(this.$data, 0.5, { tweenedNumber: newValue })
     }
   },
   methods: {
-    randomIndex () {
+    randomIndex() {
       return Math.floor(Math.random() * this.items.length)
     },
-    add () {
+    add() {
       this.items.splice(this.randomIndex(), 0, this.nextNum++)
     },
-    remove () {
+    remove() {
       this.items.splice(this.randomIndex(), 1)
     },
-    shift () {
+    shift() {
       this.items.shift()
     },
-    push () {
+    push() {
       this.items.push(this.nextNum)
       this.nextNum++
     },
-    shuffle () {
+    shuffle() {
       this.items = _.shuffle(this.items)
     },
-    refresh () {
+    refresh() {
       // this.items = []
       // this.items = [1, 2, 3, 4, 5, 6, 7, 8, 9]
       this.shift()

@@ -1,12 +1,16 @@
 <template>
-    <div>
-<!--        <chinaAreaData-->
-        <!--                :defaultPlaceCodes="['440000000000','440100000000']"-->
-        <!--                common-service-url="http://10.20.100.228:5050/pre/region_code/static/chinaAreaDataCountyAll_2018.js"-->
-        <!--                :locate-current-city="false"-->
-        <!--                :chinaAreaDataCodes.sync="chinaAreaDataCodes"-->
-        <!--                :chinaAreaDataNames.sync="chinaAreaDataNames"/>-->
-    </div>
+  <div>
+    <chinaAreaData
+      :defaultPlaceCodes="['310000000000','310110000000']"
+      myPlaceholder="所在省"
+      :allOption="['所在省','全部','全部']"
+      :level="3"
+      :whiteList="whiteList"
+      :locate-current-city="false"
+      :chinaAreaDataCodes.sync="chinaAreaDataCodes"
+      :chinaAreaDataNames.sync="chinaAreaDataNames"
+      common-service-url="http://10.20.100.228:5050/pre/region_code/static/chinaAreaDataCountyAll_2018.js"/>
+  </div>
 </template>
 
 <script>
@@ -27,14 +31,15 @@ import { wxChinaAreaData } from '../utils/wxChinaAreaData'
 console.log(wxChinaAreaData)
 
 export default {
-  name: 'search',
+  name: 'Search',
   components: {
     chinaAreaData
   },
-  data () {
+  data() {
     return {
       chinaAreaDataCodes: [],
-      chinaAreaDataNames: []
+      chinaAreaDataNames: [],
+      whiteList: ['310000000000']
     }
   }
 }

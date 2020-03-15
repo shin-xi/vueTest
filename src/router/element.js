@@ -7,6 +7,7 @@ import cascader from '@/components/ElementUI/cascader'
 import table from '@/components/ElementUI/table'
 import loading from '@/components/ElementUI/loading'
 import dialog from '@/components/ElementUI/dialog'
+import upload from '@/components/ElementUI/upload'
 
 const demoVuexRouter = [
   {
@@ -44,6 +45,10 @@ const demoVuexRouter = [
       {
         path: 'dialog',
         component: dialog
+      },
+      {
+        path: 'upload',
+        component: upload
       }
     ]
   }

@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable */
 const debounce = (func, time, ctx) => {
   let timer
   return (...params) => {
@@ -13,12 +14,12 @@ export default {
   name: 'Debounce',
   abstract: true,
   props: ['time', 'events'],
-  created () {
+  created() {
     this.eventKeys = this.events.split(',')
     this.originMap = {}
     this.debouncedMap = {}
   },
-  render () {
+  render() {
     const vnode = this.$slots.default[0]
 
     this.eventKeys.forEach((key) => {

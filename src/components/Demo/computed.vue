@@ -1,11 +1,11 @@
 <template>
-    <div>{{fullName}}</div>
+  <div>{{ fullName }}</div>
 </template>
 
 <script>
 export default {
-  name: 'computed',
-  data () {
+  name: 'Computed',
+  data() {
     return {
       firstName: 'Foo',
       lastName: 'Bar'
@@ -14,18 +14,18 @@ export default {
   computed: {
     fullName: {
       // getter
-      get () {
+      get() {
         return `${this.firstName} ${this.lastName}`
       },
       // setter
-      set (nv) {
+      set(nv) {
         const names = nv.split(' ')
         this.firstName = names[0]
         this.lastName = names[names.length - 1]
       }
     }
   },
-  mounted () {
+  mounted() {
     setTimeout(() => {
       this.fullName = 'shino xi'
     }, 2000)

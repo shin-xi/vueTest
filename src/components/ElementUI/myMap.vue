@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <div ref="map" style="width: 100px;height: 100px;"></div>
-    </div>
+  <div>
+    <div ref="map" style="width: 100px;height: 100px;"/>
+  </div>
 </template>
 
 <script>
 /* eslint-disable no-undef */
 
 export default {
-  name: 'myMap',
-  mounted () {
+  name: 'MyMap',
+  mounted() {
     this.map = new AMap.Map(this.$refs.map, {
       viewMode: '2D',
       zoom: 14,

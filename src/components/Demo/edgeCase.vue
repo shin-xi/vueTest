@@ -1,47 +1,47 @@
 <template>
-    <div>
-        <edgeCaseChild ref="child"/>
-        <div v-once>{{name}}</div>
-    </div>
+  <div>
+    <edgeCaseChild ref="child"/>
+    <div v-once>{{ name }}</div>
+  </div>
 </template>
 
 <script>
 import edgeCaseChild from '@/components/Demo/edgeCaseChild'
 
 export default {
-  name: 'edgeCase',
+  name: 'EdgeCase',
   components: {
     edgeCaseChild
   },
-  data () {
+  data() {
     return {
       foo: 1,
       name: 'vue'
     }
   },
   computed: {
-    bar () {
+    bar() {
       return this.foo + 1
     }
   },
-  provide () {
+  provide() {
     return {
       getMap: () => {
         console.log('getMap', this.foo)
       }
     }
   },
-  methods: {
-    baz () {
-      console.log(this.foo)
-    }
-  },
-  mounted () {
+  mounted() {
     console.log(this.$refs.child.case)
     setTimeout(() => {
       this.name = 'shino'
       console.log(this)
     }, 1000)
+  },
+  methods: {
+    baz() {
+      console.log(this.foo)
+    }
   }
 }
 </script>

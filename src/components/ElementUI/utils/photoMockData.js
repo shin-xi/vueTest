@@ -1,0 +1,62 @@
+export const photoMockData = [
+  {
+    '_id': '5c80fe29d6888e7474be8f87',
+    'description': null,
+    'ossPath': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/12574c4c1cdf5f99ff85d545a7268f9963802644.png',
+    'wechatPath': null,
+    'mediaId': null,
+    'originalName': '/backup/temp/asset/images/48:??4.png',
+    'mainPic': null,
+    'tag': 1,
+    'amcAssetId': 48,
+    'name': '5c80fe29d6888e7474be8f87',
+    'url': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/12574c4c1cdf5f99ff85d545a7268f9963802644.png',
+    'uid': 1581658176802,
+    'status': 'success'
+  },
+  {
+    '_id': '5c80fe2bd6888e7474be8f88',
+    'description': null,
+    'ossPath': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/a97bb674e65527c965f2fef97764193e067f9068.png',
+    'wechatPath': null,
+    'mediaId': null,
+    'originalName': '/backup/temp/asset/images/48:??1.png',
+    'mainPic': null,
+    'tag': 2,
+    'amcAssetId': 48,
+    'name': '5c80fe2bd6888e7474be8f88',
+    'url': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/a97bb674e65527c965f2fef97764193e067f9068.png',
+    'uid': 1581658176803,
+    'status': 'success'
+  },
+  {
+    '_id': '5c80fe34d6888e7474be8f89',
+    'description': null,
+    'ossPath': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/d44e96404d725a8138b008ad223bfd712d12cff0.png',
+    'wechatPath': null,
+    'mediaId': null,
+    'originalName': '/backup/temp/asset/images/48:??4.png',
+    'mainPic': null,
+    'tag': 3,
+    'amcAssetId': 48,
+    'name': '5c80fe34d6888e7474be8f89',
+    'url': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/d44e96404d725a8138b008ad223bfd712d12cff0.png',
+    'uid': 1581658176804,
+    'status': 'success'
+  },
+  {
+    '_id': '5c80fe34d6888e7474be8f8a',
+    'description': null,
+    'ossPath': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/ad367cefdea605d5a00dc82eff4d13ea6bfb2b3e.png',
+    'wechatPath': null,
+    'mediaId': null,
+    'originalName': '/backup/temp/asset/images/48:??3.png',
+    'mainPic': null,
+    'tag': 3,
+    'amcAssetId': 48,
+    'name': '5c80fe34d6888e7474be8f8a',
+    'url': 'http://ws-zcc.oss-cn-beijing.aliyuncs.com/asset/48/ad367cefdea605d5a00dc82eff4d13ea6bfb2b3e.png',
+    'uid': 1581658176805,
+    'status': 'success'
+  }
+]

@@ -1,9 +1,9 @@
 <template>
-    <div>
-        <downExcel :excelData="processData(company, tableData)"/>
-        <downExcel :excelData="testData"/>
-        <el-button type="primary" @click="getExcel">excel下载get方式</el-button>
-    </div>
+  <div>
+    <downExcel :excelData="processData(company, tableData)"/>
+    <downExcel :excelData="testData"/>
+    <el-button type="primary" @click="getExcel">excel下载get方式</el-button>
+  </div>
 </template>
 
 <script>
@@ -13,11 +13,11 @@ import axios from 'axios'
 import { saveAs } from 'file-saver'
 
 export default {
-  name: 'excel',
+  name: 'Excel',
   components: {
     downExcel
   },
-  data () {
+  data() {
     return {
       downloadLoading: false,
       company: {
@@ -104,7 +104,7 @@ export default {
     }
   },
   methods: {
-    codeToText (pro, ct) {
+    codeToText(pro, ct) {
       let text = ''
       if (pro && pro !== '-1') {
         text += CodeToText[pro]
@@ -114,7 +114,7 @@ export default {
       }
       return text
     },
-    getType (i) {
+    getType(i) {
       const type = {
         1: '不良资产包',
         2: '单体项目',
@@ -122,7 +122,7 @@ export default {
       }
       return type[i]
     },
-    processData (company, tableData) {
+    processData(company, tableData) {
       const data = [
         ['法定代表人', company.legalReptive, '统一社会信用代码', company.uniSocialCode, '', '', '', '', '', '', ''],
         ['注册联系方式', company.cmpyPhone, '注册联系地址', company.cmpyAddr],
@@ -149,7 +149,7 @@ export default {
       // console.log(data)
       return data
     },
-    getExcel () {
+    getExcel() {
       // get 方式ok
       // window.open('http://localhost:3000/getExcel', '_blank')
       axios({

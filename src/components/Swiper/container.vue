@@ -1,16 +1,16 @@
 <template>
-    <div class="swiper">
-        <div class="left">
-            <left :left="group[index]"/>
-        </div>
-        <div class="right">
-            <right :index.sync="index" :right="right"/>
-        </div>
-
-        <div>
-            <verticalText/>
-        </div>
+  <div class="swiper">
+    <div class="left">
+      <left :left="group[index]"/>
     </div>
+    <div class="right">
+      <right :index.sync="index" :right="right"/>
+    </div>
+
+    <div>
+      <verticalText/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,13 +19,13 @@ import right from './right'
 import verticalText from './verticalText'
 
 export default {
-  name: 'container',
+  name: 'Container',
   components: {
     left,
     right,
     verticalText
   },
-  data () {
+  data() {
     return {
       index: 0,
       group: [

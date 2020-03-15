@@ -33,38 +33,38 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    doneTodos (state) { // 获取state计算
+    doneTodos(state) { // 获取state计算
       return state.todos.filter(todo => todo.done)
     },
-    doneTodosCount (state, getters) { // 获取state,getters计算
+    doneTodosCount(state, getters) { // 获取state,getters计算
       // console.log(getters)
       return getters.doneTodos.length
     },
-    getTodoById (state) { // 返回函数计算
+    getTodoById(state) { // 返回函数计算
       return (id) => state.todos.find(todo => todo.id === id)
     }
   },
   mutations: {
-    switchLoading (state) {
+    switchLoading(state) {
       state.loading = !state.loading
     },
-    increment (state, payload) {
+    increment(state, payload) {
       // 变更状态
       state.count += (payload && payload.amount) || 10
     },
-    incrementBy (state, payload) {
+    incrementBy(state, payload) {
       // 变更状态
       state.count += (payload && payload.amount) || 10
     },
-    incrementPlugin (state) {
+    incrementPlugin(state) {
       state.pluginCount += 1
     },
-    updateMessage (state, message) {
+    updateMessage(state, message) {
       state.obj.message = message
     }
   },
   actions: {
-    incrementAsync ({ commit }) {
+    incrementAsync({ commit }) {
       setTimeout(() => {
         commit('increment')
       }, 1000)

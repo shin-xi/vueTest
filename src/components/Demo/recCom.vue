@@ -1,23 +1,23 @@
 <template>
-    <div>
-        <div v-for="(item,index) of list" :key="index">
-            <div style="text-align: left;">{{item.title}}</div>
-            <div v-if="item.children">
-                <recursive :list="item.children"/>
-            </div>
-        </div>
+  <div>
+    <div v-for="(item,index) of list" :key="index">
+      <div style="text-align: left;">{{ item.title }}</div>
+      <div v-if="item.children">
+        <recursive :list="item.children"/>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 import recursive from '@/components/Demo/recursive'
 
 export default {
-  name: 'recCom',
+  name: 'RecCom',
   components: {
     recursive
   },
-  data () {
+  data() {
     return {
       list: [
         {

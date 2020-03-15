@@ -1,14 +1,14 @@
 <template>
-    <div>
-        <div>{{name}}</div>
-        <div>{{status}}</div>
-    </div>
+  <div>
+    <div>{{ name }}</div>
+    <div>{{ status }}</div>
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'prop_child',
+  name: 'PropChild',
   inheritAttrs: false, // 禁用父组件属性设置
   props: {
     name: {
@@ -16,7 +16,9 @@ export default {
       default: ''
     },
     status: {
-      validator (v) {
+      type: Boolean,
+      default: false,
+      validator(v) {
         return ['success', 'warning', 'danger'].indexOf(v) !== -1
       }
     }

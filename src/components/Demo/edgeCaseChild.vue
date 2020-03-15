@@ -1,21 +1,21 @@
 <template>
-    <div>
-        edgeCaseChild
-    </div>
+  <div>
+    edgeCaseChild
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'edgeCaseChild',
+  name: 'EdgeCaseChild',
   inject: ['getMap'],
-  data () {
+  data() {
     return {
       case: 2,
       repeat: 0
     }
   },
-  mounted () {
+  mounted() {
     console.log('root foo', this.$root)
 
     console.log(this.$parent)

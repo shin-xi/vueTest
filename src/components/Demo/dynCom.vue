@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <button @click="curCom ='dynA'">dynA</button>
-        <button @click="curCom ='dynB'">dynB</button>
-        <br>
-        <br>
-        <keep-alive>
-            <component :is="curCom"></component>
-        </keep-alive>
-    </div>
+  <div>
+    <button @click="curCom ='dynA'">dynA</button>
+    <button @click="curCom ='dynB'">dynB</button>
+    <br>
+    <br>
+    <keep-alive>
+      <component :is="curCom"/>
+    </keep-alive>
+  </div>
 </template>
 
 <script>
@@ -15,12 +15,12 @@ import dynA from '@/components/Demo/dynA'
 import dynB from '@/components/Demo/dynB'
 
 export default {
-  name: 'dynCom',
+  name: 'DynCom',
   components: {
     dynA,
     dynB
   },
-  data () {
+  data() {
     return {
       curCom: 'dynA'
     }

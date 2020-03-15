@@ -1,18 +1,18 @@
 <template>
-    <div>
-        <myInput v-model="input1"/>
-    </div>
+  <div>
+    <myInput v-model="input1"/>
+  </div>
 </template>
 
 <script>
 import myInput from './myInput'
 
 export default {
-  name: 'father',
+  name: 'Father',
   components: {
     myInput
   },
-  data () {
+  data() {
     return {
       input1: 'input1'
     }

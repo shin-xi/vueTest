@@ -1,31 +1,31 @@
 <template>
-    <el-input
-            placeholder="请输入内容"
-            v-model="input11" @input="change"
-            clearable>
-    </el-input>
+  <el-input
+    v-model="input11"
+    placeholder="请输入内容"
+    clearable
+    @input="change"/>
 </template>
 
 <script>
 export default {
-  name: 'myInput',
+  name: 'MyInput',
+  model: {
+    prop: 'input1',
+    event: 'input1'
+  },
   props: {
     input1: {
       type: String,
       default: ''
     }
   },
-  model: {
-    prop: 'input1',
-    event: 'input1'
-  },
-  data () {
+  data() {
     return {
       input11: this.input1
     }
   },
   methods: {
-    change (val) {
+    change(val) {
       this.$emit('input1', val)
     }
   }

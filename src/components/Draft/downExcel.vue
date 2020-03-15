@@ -1,19 +1,23 @@
 <template>
-    <div>
-        <el-button :loading="downloadLoading" style="margin:0 0 20px 20px;" type="primary" icon="document"
-                   @click="handleDownload">
-            下载Excel
-        </el-button>
-    </div>
+  <div>
+    <el-button
+      :loading="downloadLoading"
+      style="margin:0 0 20px 20px;"
+      type="primary"
+      icon="document"
+      @click="handleDownload">
+      下载Excel
+    </el-button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'downExcel',
+  name: 'DownExcel',
   props: {
     excelData: {
       type: Array,
-      default () {
+      default() {
         return [[1, 2, 3], [4, 5, 6]]
       }
     },
@@ -22,13 +26,13 @@ export default {
       default: 'excel-list'
     }
   },
-  data () {
+  data() {
     return {
       downloadLoading: false
     }
   },
   methods: {
-    handleDownload () {
+    handleDownload() {
       this.downloadLoading = true
             import('@/vendor/Export2Excel').then(excel => {
               excel.export_json_to_excel({

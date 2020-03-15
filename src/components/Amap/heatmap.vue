@@ -1,5 +1,5 @@
 <template>
-    <div ref="map" class="container_heatmap"></div>
+  <div ref="map" class="container_heatmap"/>
 </template>
 
 <script>
@@ -7,17 +7,17 @@ import mapView from './mapView'
 import heatmapData from './heatmapData'
 
 export default {
-  name: 'heatmap',
+  name: 'Heatmap',
   mixins: [mapView],
   props: {
     heatmapData: {
       type: Array,
-      default () {
+      default() {
         return heatmapData // 热力图数据结构
       }
     }
   },
-  mounted () {
+  mounted() {
     this.mapInit(this.$refs.map, this.mapOption)
     this.heatmapInit()
     this.$nextTick(_ => {

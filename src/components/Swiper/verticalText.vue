@@ -1,22 +1,22 @@
 <template>
-    <div class="verticalText">
-        <swiper :options="swiperOption" ref="mySwiper">
-            <swiper-slide>{{paragraph}}</swiper-slide>
-            <swiper-slide>{{paragraph}}</swiper-slide>
-        </swiper>
-    </div>
+  <div class="verticalText">
+    <swiper ref="mySwiper" :options="swiperOption">
+      <swiper-slide>{{ paragraph }}</swiper-slide>
+      <swiper-slide>{{ paragraph }}</swiper-slide>
+    </swiper>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'verticalText',
+  name: 'VerticalText',
   props: {
     paragraph: {
       type: String,
       default: '道交口附近我i额外加哦飞机我发觉番道交口附近我i额外加哦飞机我发觉番道交口附近我i额外加哦飞机我发觉番道交口附近我i额外加哦飞机我发觉番'
     }
   },
-  data () {
+  data() {
     return {
       swiperOption: {
         direction: 'vertical',
@@ -33,11 +33,11 @@ export default {
     }
   },
   computed: {
-    swiper () {
+    swiper() {
       return this.$refs.mySwiper.swiper
     }
   },
-  mounted () {
+  mounted() {
     console.log('this is current swiper instance object', this.swiper)
   }
 }

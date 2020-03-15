@@ -1,18 +1,25 @@
 <template>
-    <div>
-        <span>{{folder.name}}</span>
-        <treeFolderContents :children="folder.children"/>
-    </div>
+  <div>
+    <span>{{ folder.name }}</span>
+    <treeFolderContents :children="folder.children"/>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'treeFolder',
-  props: ['folder'],
-  data () {
+  name: 'TreeFolder',
+  props: {
+    folder: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
     return {}
   },
-  beforeCreate () {
+  beforeCreate() {
     // 官方文档给出的是require
     // this.$options.components.TreeFolderContents = require('./tree-folder-contents.vue')
     // 在基于vue-cli@2.8.1按照上面的写法还是会报错

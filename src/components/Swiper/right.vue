@@ -1,27 +1,27 @@
 <template>
-    <div class="right">
-        <swiper :options="swiperOption" ref="mySwiper">
-            <template v-for="(item,index) of right">
-                <swiper-slide :key="index">right {{item}}</swiper-slide>
-            </template>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
-    </div>
+  <div class="right">
+    <swiper ref="mySwiper" :options="swiperOption">
+      <template v-for="(item,index) of right">
+        <swiper-slide :key="index">right {{ item }}</swiper-slide>
+      </template>
+      <div slot="button-prev" class="swiper-button-prev"/>
+      <div slot="button-next" class="swiper-button-next"/>
+    </swiper>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'right',
+  name: 'Right',
   props: {
     right: {
       type: Array,
-      default () {
+      default() {
         return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
       }
     }
   },
-  data () {
+  data() {
     return {
       swiperOption: {
         direction: 'vertical',
@@ -41,11 +41,11 @@ export default {
     }
   },
   computed: {
-    swiper () {
+    swiper() {
       return this.$refs.mySwiper.swiper
     }
   },
-  mounted () {
+  mounted() {
     // current swiper instance
     // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
     // console.log('this is current swiper instance object', this.swiper)

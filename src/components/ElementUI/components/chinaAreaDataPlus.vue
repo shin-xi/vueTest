@@ -1,10 +1,11 @@
 <template>
-    <el-cascader calss="cascader_chinaAreaData"
-                 :placeholder="placeholder"
-                 :style="{width: `${width}px`}"
-                 change-on-select
-                 v-model="chinaAreaDataCodes"
-                 :props="props"/>
+  <el-cascader
+    :placeholder="placeholder"
+    :style="{width: `${width}px`}"
+    v-model="chinaAreaDataCodes"
+    :props="props"
+    calss="cascader_chinaAreaData"
+    change-on-select/>
 </template>
 
 <script>
@@ -26,11 +27,11 @@ export default {
       default: 300
     }
   },
-  data () {
+  data() {
     return {
       props: {
         lazy: true,
-        lazyLoad (node, resolve) {
+        lazyLoad(node, resolve) {
           const { level } = node
           console.log(node, level)
           const data = cloneDeep(provinceAndCityAndDistrictData)
@@ -43,7 +44,7 @@ export default {
                 leaf: false
               }
             })
-            let nodes = [
+            const nodes = [
               // {
               //   value: '',
               //   label: '全部',
@@ -67,7 +68,7 @@ export default {
                 }
               })
             }
-            let nodes = [
+            const nodes = [
               // {
               //   value: '',
               //   label: '全部',
@@ -92,7 +93,7 @@ export default {
                 }
               })
             }
-            let nodes = [
+            const nodes = [
               // {
               //   value: '',
               //   label: '全部',
@@ -123,7 +124,7 @@ export default {
                     leaf: true
                   }
                 })
-                let nodes = [
+                const nodes = [
                   // {
                   //   value: '',
                   //   label: '全部',
@@ -147,14 +148,14 @@ export default {
     }
   },
   computed: {
-    placeholder () {
+    placeholder() {
       if (this.chinaAreaDataCodes.length > 0) {
         return this.chinaAreaDataCodes.map(v => CodeToText[v]).join('/')
       } else {
         return this.selectedPlace
       }
     },
-    chinaAreaDataNames () {
+    chinaAreaDataNames() {
       if (this.chinaAreaDataCodes.length > 0) {
         return this.chinaAreaDataCodes.map(v => CodeToText[v])
       } else {

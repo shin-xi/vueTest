@@ -1,29 +1,34 @@
 <template>
-    <div class="contain_regionPick">
-        <div class="regions" v-for="(item,index) of regionData" :key="index">
-            <div class="regionItem" :class="{active:showIndex!==-1 && index === showIndex}">
-                <span @click="pickup(item,index)">{{ item.label }}</span>
-                <template v-if="item.children">
-                    <span v-if="showIndex!==-1 && index === showIndex">-</span>
-                    <span v-else>+</span>
-                </template>
-            </div>
+  <div class="contain_regionPick">
+    <div v-for="(item,index) of regionData" :key="index" class="regions">
+      <div :class="{active:showIndex!==-1 && index === showIndex}" class="regionItem">
+        <span @click="pickup(item,index)">{{ item.label }}</span>
+        <template v-if="item.children">
+          <span v-if="showIndex!==-1 && index === showIndex">-</span>
+          <span v-else>+</span>
+        </template>
+      </div>
 
-            <template v-if="index === showIndex">
-                <regionPick class="inner" v-if="item.children" :currentValue="currentValueCopy" :currentLabel="currentLabelCopy" :index="curIndex + 1"
-                            :style="{marginLeft:`${-(index%6)*100}px`,zIndex:curIndex+1}"
-                            v-model="currentValueCopy"
-                            :regionData="item.children"/>
-            </template>
-        </div>
+      <template v-if="index === showIndex">
+        <regionPick
+          v-if="item.children"
+          :currentValue="currentValueCopy"
+          :currentLabel="currentLabelCopy"
+          :index="curIndex + 1"
+          :style="{marginLeft:`${-(index%6)*100}px`,zIndex:curIndex+1}"
+          v-model="currentValueCopy"
+          :regionData="item.children"
+          class="inner"/>
+      </template>
     </div>
+  </div>
 </template>
 
 <script>
 import regionPick from './regionPick'
 
 export default {
-  name: 'regionPick',
+  name: 'RegionPick',
   components: {
     regionPick
   },
@@ -34,7 +39,7 @@ export default {
   props: {
     regionData: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
@@ -44,18 +49,18 @@ export default {
     },
     currentValue: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
     currentLabel: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     }
   },
-  data () {
+  data() {
     return {
       currentValueCopy: [],
       currentLabelCopy: [],
@@ -65,28 +70,28 @@ export default {
   },
   watch: {
     currentValue: {
-      handler (nv) {
+      handler(nv) {
         this.currentValueCopy = nv
       },
       deep: true,
       immediate: true
     },
     currentValueCopy: {
-      handler (nv) {
+      handler(nv) {
         this.$emit('pickupValue', nv)
       },
       deep: true,
       immediate: true
     },
     currentLabel: {
-      handler (nv) {
+      handler(nv) {
         this.currentLabelCopy = nv
       },
       deep: true,
       immediate: true
     },
     currentLabelCopy: {
-      handler (nv) {
+      handler(nv) {
         this.$emit('pickupLabel', nv)
       },
       deep: true,
@@ -94,7 +99,7 @@ export default {
     }
   },
   methods: {
-    pickup (item, index) {
+    pickup(item, index) {
       console.log('点击了', item)
 
       if (!this.currentValueCopy[this.curIndex] || this.currentValueCopy[this.curIndex] !== item.value) {

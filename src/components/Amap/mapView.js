@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 export default {
-  data () {
+  data() {
     return {
       mapView: null, // 地图实例
       heatmap: null, // 热力图实例
@@ -19,13 +19,13 @@ export default {
     }
   },
   methods: {
-    mapInit (dom, option = this.mapOption) {
+    mapInit(dom, option = this.mapOption) {
       this.mapView = new AMap.Map(dom, option)
       this.mapView.on('click', (ev) => {
         console.log(ev)
       })
     },
-    heatmapInit () {
+    heatmapInit() {
       this.heatmap = new AMap.Heatmap(this.mapView, {
         radius: 25, // 给定半径
         opacity: [0, 0.8],
@@ -45,7 +45,7 @@ export default {
         }
       })
     },
-    setHeatmap (heatmapData) {
+    setHeatmap(heatmapData) {
       this.heatmap.setDataSet({
         data: heatmapData.filter(v => v.count > 0)
         // max: 100 // 其中max不填则取数据集count最大值

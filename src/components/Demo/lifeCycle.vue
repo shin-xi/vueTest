@@ -1,35 +1,35 @@
 <template>
-    <lifeCycleChild/>
+  <lifeCycleChild/>
 </template>
 
 <script>
 import lifeCycleChild from '@/components/Demo/lifeCycleChild'
 
 export default {
-  name: 'lifeCycle',
+  name: 'LifeCycle',
   components: {
     lifeCycleChild
   },
-  beforeCreate () {
+  beforeCreate() {
     console.log('father: ------beforeCreate创建前状态------')
   },
-  created () {
+  created() {
     console.log('father: ------created创建完毕状态------')
   },
-  beforeMount () {
+  beforeMount() {
     console.log('father: ------beforeMount挂载前状态------')
   },
-  mounted () {
+  mounted() {
     console.log('father: ------mounted 挂载结束状态------')
   },
-  beforeDestroy () {
+  beforeDestroy() {
     console.groupEnd()
     console.groupEnd()
     console.groupEnd()
     console.groupEnd()
     console.log('father: beforeDestroy 销毁前状态===============》')
   },
-  destroyed () {
+  destroyed() {
     console.log('father: destroyed 销毁完成状态===============》')
   }
 }

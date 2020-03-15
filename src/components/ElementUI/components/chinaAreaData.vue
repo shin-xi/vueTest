@@ -1,12 +1,13 @@
 <template>
-    <el-cascader v-if="provinceAndCityAndDistrictData.length && commonServiceUrl"
-                 :placeholder="placeholder"
-                 calss="cascader_chinaAreaData"
-                 :style="{width: `${width}px`}"
-                 change-on-select
-                 :props="{ checkStrictly: checkStrictly }"
-                 v-model="chinaAreaDataCodes"
-                 :options="provinceAndCityAndDistrictData"/>
+  <el-cascader
+    v-if="provinceAndCityAndDistrictData.length && commonServiceUrl"
+    :placeholder="placeholder"
+    :style="{width: `${width}px`}"
+    :props="{ checkStrictly: checkStrictly }"
+    v-model="chinaAreaDataCodes"
+    :options="provinceAndCityAndDistrictData"
+    calss="cascader_chinaAreaData"
+    change-on-select/>
 </template>
 
 <script>
@@ -35,13 +36,13 @@ export default {
     },
     defaultPlaceCodes: {
       type: Array,
-      default () {
+      default() {
         return []
       }
     },
     allOption: {
       type: Array,
-      default () {
+      default() {
         return ['全部', '全部', '全部']
       }
     },
@@ -52,9 +53,19 @@ export default {
     checkStrictly: {
       type: Boolean,
       default: false
+    },
+    whiteList: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
+    myPlaceholder: {
+      type: String,
+      default: '请选择'
     }
   },
-  data () {
+  data() {
     return {
       provinceAndCityAndDistrictData: [],
       chinaAreaDataCodes: [],
@@ -96,8 +107,91 @@ export default {
       municipalities: new Set(['上海市', '北京市', '天津市'])
     }
   },
+  computed: {
+    placeholder() {
+      if (this.chinaAreaDataNames.length > 0) {
+        if (this.chinaAreaDataNames.length === 1) {
+          return this.chinaAreaDataNames[0]
+        } else {
+          return this.chinaAreaDataNames.join('/')
+        }
+      } else {
+        return this.myPlaceholder
+      }
+    }
+  },
+  watch: {
+    provinceAndCityAndDistrictData: {
+      handler(nv) {
+        if (nv.length > 0) {
+          this.citySearch()
+        }
+      },
+      immediate: true
+    },
+    chinaAreaDataCodes: {
+      handler(nv) {
+        if (nv.length > 0) {
+          if (this.CodeToText) {
+            const chinaAreaDataNames = []
+            this.chinaAreaDataCodes.forEach(v => {
+              chinaAreaDataNames.push(this.CodeToText[v] || '')
+            })
+            // console.log(chinaAreaDataNames)
+            this.chinaAreaDataNames = chinaAreaDataNames
+
+            if (this.municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
+              this.$emit('update:chinaAreaDataNames', [chinaAreaDataNames[0], chinaAreaDataNames[0]])
+              this.$emit('update:chinaAreaDataCodes', [this.chinaAreaDataCodes[0], this.chinaAreaDataCodes[0].slice(0, 3) + '100000000'])
+            } else {
+              this.$emit('update:chinaAreaDataNames', chinaAreaDataNames)
+              this.$emit('update:chinaAreaDataCodes', this.chinaAreaDataCodes)
+            }
+          }
+        }
+      },
+      immediate: true
+    }
+  },
+  mounted() {
+    if (!window.provinceAndCityAndDistrictData) {
+      let cache = ''
+      if (this.update === 'monthly') {
+        const now = new Date()
+        const year = now.getFullYear()
+        const month = ('' + (now.getMonth() + 1)).padStart(2, '0')
+        cache = `?v=${year}${month}`
+      }
+      load(`${this.commonServiceUrl}${cache}`, (err, script) => {
+        if (err) {
+          throw Error(err)
+        } else {
+          // console.log(script.src)
+          provinceAndCityAndDistrictData.forEach(v => { // 排序
+            this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
+          })
+          this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
+          this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
+          this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
+          this.$nextTick(() => {
+            this.$emit('update:CodeToText', this.CodeToText)
+          })
+        }
+      })
+    } else {
+      provinceAndCityAndDistrictData.forEach(v => { // 排序
+        this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
+      })
+      this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
+      this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
+      this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
+      this.$nextTick(() => {
+        this.$emit('update:CodeToText', this.CodeToText)
+      })
+    }
+  },
   methods: {
-    loadMap () {
+    loadMap() {
       return new Promise((resolve, reject) => {
         if (this.locateCurrentCity) {
           if (!window.AMap) {
@@ -118,7 +212,7 @@ export default {
         }
       })
     },
-    async citySearch () {
+    async citySearch() {
       await this.loadMap()
 
       if (this.defaultPlaceCodes.length > 0) {
@@ -158,7 +252,7 @@ export default {
         }
       }
     },
-    transCodeToText (obj, data) {
+    transCodeToText(obj, data) {
       data.forEach(v => {
         if (v.value) {
           obj[v.value] = v.label
@@ -168,135 +262,82 @@ export default {
         }
       })
     },
-    processData (data) {
-      let _data = cloneDeep(data)
-      if (this.allOption[0]) {
-        _data = [
-          {
+    processData(data) {
+      const _data = cloneDeep(data)
+      const _whiteList = new Set(this.whiteList)
+
+      if (this.level === 1) {
+        _data.forEach(v => {
+          v.disabled = this.whiteList.length ? !_whiteList.has(v.value) : false
+          delete v.children
+        })
+
+        if (this.allOption[0]) {
+          _data.unshift({
             label: this.allOption[0],
             value: ''
-          },
-          ..._data
-        ]
+          })
+        }
       }
 
-      _data.forEach(v => {
-        if (this.allOption[1]) {
-          if (this.level === 1) {
-            delete v.children
-          }
+      if (this.level === 2) {
+        _data.forEach(v => {
+          v.disabled = this.whiteList.length ? !_whiteList.has(v.value) : false
 
           if (v.hasOwnProperty('children')) {
-            v.children = [
-              {
+            v.children.forEach(vv => {
+              delete vv.children
+            })
+
+            if (this.allOption[1]) {
+              v.children.unshift({
                 label: this.allOption[1],
                 value: ''
-              },
-              ...v.children
-            ]
-            v.children.forEach(vv => {
-              if (this.allOption[2]) {
-                if (this.level === 2) {
-                  delete vv.children
-                }
-                if (vv.hasOwnProperty('children')) {
-                  vv.children = [
-                    {
-                      label: this.allOption[2],
-                      value: ''
-                    },
-                    ...vv.children
-                  ]
-                }
-              }
-            })
-          }
-        }
-      })
-      return _data
-    }
-  },
-  computed: {
-    placeholder () {
-      if (this.chinaAreaDataNames.length > 0) {
-        if (this.chinaAreaDataNames.length === 1) {
-          return this.chinaAreaDataNames[0]
-        } else {
-          return this.chinaAreaDataNames.join('/')
-        }
-      } else {
-        return '请选择'
-      }
-    }
-  },
-  watch: {
-    provinceAndCityAndDistrictData: {
-      handler (nv) {
-        if (nv.length > 0) {
-          this.citySearch()
-        }
-      },
-      immediate: true
-    },
-    chinaAreaDataCodes: {
-      handler (nv) {
-        if (nv.length > 0) {
-          if (this.CodeToText) {
-            const chinaAreaDataNames = []
-            this.chinaAreaDataCodes.forEach(v => {
-              chinaAreaDataNames.push(this.CodeToText[v] || '')
-            })
-            // console.log(chinaAreaDataNames)
-            this.chinaAreaDataNames = chinaAreaDataNames
-
-            if (this.municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
-              this.$emit('update:chinaAreaDataNames', [chinaAreaDataNames[0], chinaAreaDataNames[0]])
-              this.$emit('update:chinaAreaDataCodes', [this.chinaAreaDataCodes[0], this.chinaAreaDataCodes[0].slice(0, 3) + '100000000'])
-            } else {
-              this.$emit('update:chinaAreaDataNames', chinaAreaDataNames)
-              this.$emit('update:chinaAreaDataCodes', this.chinaAreaDataCodes)
+              })
             }
           }
+        })
+
+        if (this.allOption[0]) {
+          _data.unshift({
+            label: this.allOption[0],
+            value: ''
+          })
         }
-      },
-      immediate: true
-    }
-  },
-  mounted () {
-    if (!window.provinceAndCityAndDistrictData) {
-      let cache = ''
-      if (this.update === 'monthly') {
-        const now = new Date()
-        const year = now.getFullYear()
-        const month = ('' + (now.getMonth() + 1)).padStart(2, '0')
-        cache = `?v=${year}${month}`
       }
-      load(`${this.commonServiceUrl}${cache}`, (err, script) => {
-        if (err) {
-          throw Error(err)
-        } else {
-          // console.log(script.src)
-          provinceAndCityAndDistrictData.forEach(v => { // 排序
-            this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
-          })
-          this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
-          this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
-          this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
-          this.$nextTick(() => {
-            this.$emit('update:CodeToText', this.CodeToText)
+
+      if (this.level === 3) {
+        _data.forEach(v => {
+          v.disabled = this.whiteList.length ? !_whiteList.has(v.value) : false
+
+          if (v.hasOwnProperty('children')) {
+            v.children.forEach(vv => {
+              if (this.allOption[2]) {
+                vv.children.unshift({
+                  label: this.allOption[2],
+                  value: ''
+                })
+              }
+            })
+
+            if (this.allOption[1]) {
+              v.children.unshift({
+                label: this.allOption[1],
+                value: ''
+              })
+            }
+          }
+        })
+
+        if (this.allOption[0]) {
+          _data.unshift({
+            label: this.allOption[0],
+            value: ''
           })
         }
-      })
-    } else {
-      provinceAndCityAndDistrictData.forEach(v => { // 排序
-        this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
-      })
-      this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
-      this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
-      this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
-      this.$nextTick(() => {
-        this.$emit('update:CodeToText', this.CodeToText)
-      })
+      }
+
+      return _data
     }
   }
 }

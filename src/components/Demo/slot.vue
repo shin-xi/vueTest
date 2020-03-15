@@ -1,39 +1,39 @@
 <template>
-    <div>
-        <slotChild>
-            <template slot="header">
-                <h1>Here might be a page title</h1>
-            </template>
+  <div>
+    <slotChild>
+      <template slot="header">
+        <h1>Here might be a page title</h1>
+      </template>
 
-            <p>A paragraph for the main content.</p>
-            <p>And another one.</p>
+      <p>A paragraph for the main content.</p>
+      <p>And another one.</p>
 
-            <template slot="footer">
-                <p>Here's some contact info</p>
-            </template>
-        </slotChild>
+      <template slot="footer">
+        <p>Here's some contact info</p>
+      </template>
+    </slotChild>
 
-        <br>
+    <br>
 
-        <slotChild/>
+    <slotChild/>
 
-        <br>
+    <br>
 
-        <slotChild>
-            {{name}}
-        </slotChild>
-    </div>
+    <slotChild>
+      {{ name }}
+    </slotChild>
+  </div>
 </template>
 
 <script>
 import slotChild from '@/components/Demo/slotChild'
 
 export default {
-  name: 'mySlot',
+  name: 'MySlot',
   components: {
     slotChild
   },
-  data () {
+  data() {
     return {
       name: 'shino'
     }

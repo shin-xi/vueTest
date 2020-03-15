@@ -1,14 +1,14 @@
 <template>
-    <div>child</div>
+  <div>child</div>
 </template>
 
 <script>
 export default {
-  name: 'child',
+  name: 'Child',
   props: {
     fooCopy: {
       type: Object,
-      default () {
+      default() {
         return {
           index: 1,
           name: 'foo'
@@ -16,14 +16,14 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       foo: {}
     }
   },
   watch: {
     fooCopy: {
-      handler (nv, ov) {
+      handler(nv, ov) {
         // console.log((nv && nv.index) || null, (ov && ov.index) || null)
         this.foo = nv
       },
@@ -31,7 +31,7 @@ export default {
       immediate: true
     },
     foo: {
-      handler (nv) {
+      handler(nv) {
         this.$emit('update:foo', nv)
       },
       deep: true

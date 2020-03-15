@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <asyChild/>
-    </div>
+  <div>
+    <asyChild/>
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'asyCom',
+  name: 'AsyCom',
   components: {
     asyChild: () => import('@/components/Demo/asyChild')
   }

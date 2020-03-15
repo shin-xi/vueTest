@@ -1,20 +1,23 @@
 <template>
-    <div>
-        <div v-for="(item,index) of list" :key="index">
-            <div>{{item.title}}</div>
-            <div v-if="item.children">
-                <recursive :list="item.children"/>
-            </div>
-        </div>
+  <div>
+    <div v-for="(item,index) of list" :key="index">
+      <div>{{ item.title }}</div>
+      <div v-if="item.children">
+        <recursive :list="item.children"/>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'recursive',
+  name: 'Recursive',
   props: {
     list: {
-      return: {}
+      type: Object,
+      default() {
+        return {}
+      }
     }
   }
 }

@@ -1,36 +1,40 @@
 <template>
-    <div>
-        <el-autocomplete clearable
-                popper-class="my-autocomplete"
-                v-model="state3"
-                :fetch-suggestions="querySearch"
-                placeholder="请输入内容"
-                @select="handleSelect">
-            <i class="el-icon-edit el-input__icon"
-               slot="suffix"
-               @click="handleIconClick">
-            </i>
-            <template slot-scope="{ item }">
-                <div class="name">{{ item.value }}</div>
-                <span class="addr">{{ item.address }}</span>
-            </template>
-        </el-autocomplete>
+  <div>
+    <el-autocomplete
+      v-model="state3"
+      :fetch-suggestions="querySearch"
+      clearable
+      popper-class="my-autocomplete"
+      placeholder="请输入内容"
+      @select="handleSelect">
+      <i
+        slot="suffix"
+        class="el-icon-edit el-input__icon"
+        @click="handleIconClick"/>
+      <template slot-scope="{ item }">
+        <div class="name">{{ item.value }}</div>
+        <span class="addr">{{ item.address }}</span>
+      </template>
+    </el-autocomplete>
 
-    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'myInput',
-  data () {
+  name: 'MyInput',
+  data() {
     return {
       restaurants: [],
       state3: '',
       timeout: null
     }
   },
+  mounted() {
+    this.restaurants = this.loadAll()
+  },
   methods: {
-    querySearch (queryString, cb) {
+    querySearch(queryString, cb) {
       const restaurants = this.restaurants
       const results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
       // 调用 callback 返回建议列表的数据
@@ -40,12 +44,12 @@ export default {
         cb(results) // 调用函数前列表处于loading状态
       }, 3000 * Math.random())
     },
-    createFilter (queryString) {
+    createFilter(queryString) {
       return (restaurant) => {
         return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
       }
     },
-    loadAll () {
+    loadAll() {
       return [
         { 'value': '三全鲜食（北新泾店）', 'address': '长宁区新渔路144号' },
         { 'value': 'Hot honey 首尔炸鸡（仙霞路）', 'address': '上海市长宁区淞虹路661号' },
@@ -97,15 +101,12 @@ export default {
         { 'value': '南拳妈妈龙虾盖浇饭', 'address': '普陀区金沙江路1699号鑫乐惠美食广场A13' }
       ]
     },
-    handleSelect (item) {
+    handleSelect(item) {
       console.log(item)
     },
-    handleIconClick (ev) {
+    handleIconClick(ev) {
       console.log(ev)
     }
-  },
-  mounted () {
-    this.restaurants = this.loadAll()
   }
 }
 </script>

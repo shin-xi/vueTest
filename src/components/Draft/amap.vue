@@ -1,14 +1,14 @@
 <template>
-    <div class="container">
-        <div class="map" ref="map"></div>
-    </div>
+  <div class="container">
+    <div ref="map" class="map"/>
+  </div>
 </template>
 
 <script>
 /* eslint-disable no-undef */
 export default {
-  name: 'amap',
-  data () {
+  name: 'Amap',
+  data() {
     return {
       map: null,
       center: [121.461642, 31.206598],
@@ -18,7 +18,7 @@ export default {
     }
   },
   watch: {
-    marker (nv) {
+    marker(nv) {
       if (nv) {
         this.overlayGroup && this.overlayGroup.clearOverlays()
 
@@ -35,7 +35,7 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.map = new AMap.Map(this.$refs.map, {
       viewMode: '3D',
       zooms: [16, 18],

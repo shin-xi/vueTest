@@ -1,20 +1,20 @@
 <template>
-    <div>
-        <li v-for="(folder,index) in folders" :key="index">
-            <treeFolder :folder="folder"></treeFolder>
-        </li>
-    </div>
+  <div>
+    <li v-for="(folder,index) in folders" :key="index">
+      <treeFolder :folder="folder"/>
+    </li>
+  </div>
 </template>
 
 <script>
 import treeFolder from '@/components/Demo/treeFolder'
 
 export default {
-  name: 'treeCom',
+  name: 'TreeCom',
   components: {
     treeFolder
   },
-  data () {
+  data() {
     return {
       folders: [
         {
