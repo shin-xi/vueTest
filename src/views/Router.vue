@@ -1,26 +1,26 @@
 <template>
-    <div style="position: relative;">
-        <template v-for="(item,index) of link">
-            <span v-if="!!index" :key="index"> | </span>
-            <router-link :key="`link${index}`" :to="item.to">{{item.description}}</router-link>
-        </template>
+  <div style="position: relative;">
+    <template v-for="(item,index) of link">
+      <span v-if="!!index" :key="index"> | </span>
+      <router-link :key="`link${index}`" :to="item.to">{{ item.description }}</router-link>
+    </template>
 
-        <br>
-            <div v-if="$store.state.loading">loading...</div>
-        <br>
+    <br>
+    <div v-if="$store.state.loading">loading...</div>
+    <br>
 
-        <div style="margin-top: 50px;">
-            <transition :name="transitionName">
-                <router-view/>
-            </transition>
-        </div>
+    <div style="margin-top: 50px;">
+      <transition :name="transitionName">
+        <router-view/>
+      </transition>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Router',
-  data () {
+  data() {
     return {
       link: [
         { to: '/router/dynRouter', description: '动态路由（无参数）' },
@@ -34,14 +34,14 @@ export default {
     }
   },
   watch: {
-    '$route' (to, from) {
+    '$route'(to, from) {
       const toIndex = to.meta.index
       const fromIndex = from.meta.index
       // console.log(toIndex, fromIndex)
       this.transitionName = toIndex < fromIndex ? 'slide-left' : 'slide-right'
     }
   },
-  beforeRouteEnter (to, from, next) {
+  beforeRouteEnter(to, from, next) {
     // 在渲染该组件的对应路由被 confirm 前调用
     // 不！能！获取组件实例 `this`
     // 因为当守卫执行前，组件实例还没被创建
@@ -54,7 +54,7 @@ export default {
       }, 3000)
     })
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     // 在当前路由改变，但是该组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
@@ -62,7 +62,7 @@ export default {
     // console.log('我是组件路由守卫beforeRouteUpdate', this)
     next()
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteLeave(to, from, next) {
     // 导航离开该组件的对应路由时调用
     // 可以访问组件实例 `this`
     // console.log('我是组件路由守卫beforeRouteLeave', this)

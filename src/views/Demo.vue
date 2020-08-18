@@ -1,20 +1,20 @@
 <template>
-    <div>
-        <template v-for="(item,index) of link">
-            <span v-if="!!index" :key="index"> | </span>
-            <router-link :key="`link${index}`" :to="item.to">{{item.description}}</router-link>
-        </template>
+  <div>
+    <template v-for="(item,index) of link">
+      <span v-if="!!index" :key="index"> | </span>
+      <router-link :key="`link${index}`" :to="item.to">{{ item.description }}</router-link>
+    </template>
 
-        <div style="margin-top: 50px;">
-            <router-view/>
-        </div>
+    <div style="margin-top: 50px;">
+      <router-view/>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Demo',
-  data () {
+  data() {
     return {
       link: [
         { to: '/demo/lifeCycle', description: '生命周期' },
@@ -30,7 +30,8 @@ export default {
         { to: '/demo/recCom', description: '递归组件' },
         { to: '/demo/treeCom', description: '递归循环组件' },
         { to: '/demo/trans', description: '过渡' },
-        { to: '/demo/transList', description: '列表和状态过渡' }
+        { to: '/demo/transList', description: '列表和状态过渡' },
+        { to: '/demo/jsx', description: 'jsx' }
       ]
     }
   }

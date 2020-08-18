@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-<!--    <MyFirstComponent :items="cityList"></MyFirstComponent>-->
+    <!--    <MyFirstComponent :items="cityList"></MyFirstComponent>-->
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   components: {
     // MyFirstComponent
   },
-  data () {
+  data() {
     return {
       cityList: ['北京', '上海', '广州', '深圳']
     }

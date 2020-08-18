@@ -13,6 +13,7 @@ import recCom from '@/components/Demo/recCom'
 import treeCom from '@/components/Demo/treeCom'
 import trans from '@/components/Demo/transition'
 import transList from '@/components/Demo/transList'
+import jsx from '@/components/Demo/jsxList'
 
 const demo = [
   {
@@ -74,6 +75,10 @@ const demo = [
       {
         path: 'transList',
         component: transList
+      },
+      {
+        path: 'jsx',
+        component: jsx
       }
     ]
   }

@@ -2,25 +2,43 @@
   <el-cascader
     v-if="provinceAndCityAndDistrictData.length && commonServiceUrl"
     :placeholder="placeholder"
-    :style="{width: `${width}px`}"
-    :props="{ checkStrictly: checkStrictly }"
+    :style="{width: `${typeof width ==='number'?width+'px':width}`}"
+    :props="{ checkStrictly: checkStrictly,multiple:multiple }"
     v-model="chinaAreaDataCodes"
     :options="provinceAndCityAndDistrictData"
-    calss="cascader_chinaAreaData"
-    change-on-select/>
+    :collapse-tags="collapseTags"
+    :size="size"
+    class="cascader_chinaAreaData"
+    change-on-select
+    @change="change"/>
 </template>
 
 <script>
 /* eslint-disable no-undef */
 import { cloneDeep } from 'lodash'
+
 const load = require('load-script') // script动态加载
 
 export default {
   name: 'ChinaAreaData',
+  model: {
+    prop: 'codes',
+    event: 'change'
+  },
   props: {
+    codes: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     width: {
-      type: Number,
-      default: 200
+      type: [Number, String],
+      default: '100%'
+    },
+    size: {
+      type: String,
+      default: 'large'
     },
     commonServiceUrl: {
       type: String,
@@ -28,7 +46,7 @@ export default {
     },
     locateCurrentCity: {
       type: Boolean,
-      default: true
+      default: false
     },
     update: {
       type: String,
@@ -54,6 +72,14 @@ export default {
       type: Boolean,
       default: false
     },
+    collapseTags: {
+      type: Boolean,
+      default: false
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
     whiteList: {
       type: Array,
       default() {
@@ -72,15 +98,15 @@ export default {
       chinaAreaDataNames: [],
       CodeToText: {},
       provinceIndex: {
-        '北京市': 3, // 110000
-        '天津市': 14, // 120000
+        '北京': 3, // 110000
+        '天津': 14, // 120000
         '河北省': 17, // 130000
         '山西省': 15, // 140000
         '内蒙古自治区': 26, // 150000
         '辽宁省': 16, // 210000
         '吉林省': 21, // 220000
         '黑龙江省': 18, // 230000
-        '上海市': 4, // 310000
+        '上海': 4, // 310000
         '江苏省': 2, // 320000
         '浙江省': 1, // 330000
         '安徽省': 8, // 340000
@@ -93,7 +119,7 @@ export default {
         '广东省': 0, // 440000
         '广西壮族自治区': 19, // 450000
         '海南省': 20, // 460000
-        '重庆市': 6, // 500000
+        '重庆': 6, // 500000
         '四川省': 10, // 510000
         '贵州省': 23, // 520000
         '云南省': 24, // 530000
@@ -121,6 +147,12 @@ export default {
     }
   },
   watch: {
+    codes: {
+      handler(nv) {
+        this.chinaAreaDataCodes = nv
+      },
+      immediate: true
+    },
     provinceAndCityAndDistrictData: {
       handler(nv) {
         if (nv.length > 0) {
@@ -139,16 +171,9 @@ export default {
             })
             // console.log(chinaAreaDataNames)
             this.chinaAreaDataNames = chinaAreaDataNames
-
-            if (this.municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
-              this.$emit('update:chinaAreaDataNames', [chinaAreaDataNames[0], chinaAreaDataNames[0]])
-              this.$emit('update:chinaAreaDataCodes', [this.chinaAreaDataCodes[0], this.chinaAreaDataCodes[0].slice(0, 3) + '100000000'])
-            } else {
-              this.$emit('update:chinaAreaDataNames', chinaAreaDataNames)
-              this.$emit('update:chinaAreaDataCodes', this.chinaAreaDataCodes)
-            }
           }
         }
+        this.$emit('change', nv)
       },
       immediate: true
     }
@@ -226,12 +251,18 @@ export default {
               if (status === 'complete' && result.info === 'OK') {
                 // 查询成功，result即为当前所在城市信息
                 // console.log(result)
-                const { province, city } = result
+                // eslint-disable-next-line
+                let { province, city } = result
+                province = province === '上海市' ? '上海' : province
+                province = province === '北京市' ? '北京' : province
+                province = province === '重庆市' ? '重庆' : province
+                province = province === '天津市' ? '天津' : province
                 // 模拟默认定位到的地址
                 // const province = '江苏省'
                 // const city = '南京市'
                 if (provinceAndCityAndDistrictData) {
                   const provinceOpt = provinceAndCityAndDistrictData.find(v => v.label === province)
+                  // console.log(province, city, provinceOpt, provinceAndCityAndDistrictData)
                   chinaAreaDataCodes.push(provinceOpt.value)
                   if (province === city) {
                     try {
@@ -245,6 +276,7 @@ export default {
                   }
                   // console.log(chinaAreaDataCodes)
                   this.chinaAreaDataCodes = chinaAreaDataCodes
+                  this.change()
                 }
               }
             })
@@ -338,6 +370,31 @@ export default {
       }
 
       return _data
+    },
+    change() {
+      if (this.chinaAreaDataCodes.length > 0) {
+        if (this.CodeToText) {
+          const chinaAreaDataNames = []
+          this.chinaAreaDataCodes.forEach(v => {
+            chinaAreaDataNames.push(this.CodeToText[v] || '')
+          })
+          // console.log(chinaAreaDataNames)
+          this.chinaAreaDataNames = chinaAreaDataNames
+
+          if (this.municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
+            this.$emit('update:chinaAreaDataNames', [chinaAreaDataNames[0], chinaAreaDataNames[0]])
+            this.$emit('update:chinaAreaDataCodes', [this.chinaAreaDataCodes[0], this.chinaAreaDataCodes[0].slice(0, 3) + '100000000'])
+          } else {
+            this.$emit('update:chinaAreaDataNames', chinaAreaDataNames)
+            this.$emit('update:chinaAreaDataCodes', this.chinaAreaDataCodes)
+          }
+        }
+      }
+    },
+    reset() {
+      this.chinaAreaDataCodes = this.chinaAreaDataNames = []
+      this.$emit('update:chinaAreaDataNames', [])
+      this.$emit('update:chinaAreaDataCodes', [])
     }
   }
 }

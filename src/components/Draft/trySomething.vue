@@ -4,13 +4,17 @@
       <div>{{ item.title }}-{{ item.content }}</div>
     </div>
     <button @click="setData">click</button>
+
+    <hr>
+
+    <input ref="elChooseFile" type="file" @change="changeChooseFile">
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Try',
+  name: 'TrySomething',
   data() {
     return {
       list: [
@@ -27,6 +31,9 @@ export default {
           this.list[i].content += '<mp-miniprogram></mp-miniprogram>'
         }, 1000)
       }
+    },
+    changeChooseFile() {
+      console.dir(this.$refs.elChooseFile)
     }
   }
 }

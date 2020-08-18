@@ -8,6 +8,8 @@ import table from '@/components/ElementUI/table'
 import loading from '@/components/ElementUI/loading'
 import dialog from '@/components/ElementUI/dialog'
 import upload from '@/components/ElementUI/upload'
+import scrollbar from '@/components/ElementUI/scrollbar'
+import tree from '@/components/ElementUI/tree'
 
 const demoVuexRouter = [
   {
@@ -49,6 +51,14 @@ const demoVuexRouter = [
       {
         path: 'upload',
         component: upload
+      },
+      {
+        path: 'scrollbar',
+        component: scrollbar
+      },
+      {
+        path: 'tree',
+        component: tree
       }
     ]
   }

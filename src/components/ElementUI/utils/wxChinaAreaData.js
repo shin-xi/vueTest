@@ -1,15 +1,15 @@
 const load = require('load-script') // script动态加载
-export const baseURL = process.env.NODE_ENV === 'development' ? 'http://10.20.100.228:5050' : 'http://10.20.100.228:5050'
+export const baseURL = process.env.NODE_ENV === 'development' ? 'http://10.20.100.252:5050' : 'http://10.20.100.252:5050'
 /* eslint-disable no-undef */
 
-let wxChinaAreaData = {}
+const wxChinaAreaData = {}
 
 if (!window.provinceAndCityAndDistrictData) {
   const now = new Date()
   const year = now.getFullYear()
   const month = ('' + (now.getMonth() + 1)).padStart(2, '0')
   const cache = `?v=${year}${month}`
-  load(`${baseURL}/pre/region_code/static/chinaAreaDataCountyAll_2018.js${cache}`, (err, script) => {
+  load(`${baseURL}/static/chinaAreaDataCountyAll_2019.js${cache}`, (err, script) => {
     if (err) {
       throw Error(err)
     } else {
@@ -21,10 +21,10 @@ if (!window.provinceAndCityAndDistrictData) {
   wxChinaAreaData.CodeToText = transCodeToText(window.provinceAndCityAndDistrictData)
 }
 
-function transCodeToText (data) {
+function transCodeToText(data) {
   const obj = {}
   _transCodeToText(obj, data)
-  function _transCodeToText (obj, data) {
+  function _transCodeToText(obj, data) {
     // console.log(typeof data)
     data.forEach(v => {
       obj[v.value] = v.label

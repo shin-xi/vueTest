@@ -25,7 +25,9 @@ export default {
         { to: '/element/table', description: '表格' },
         { to: '/element/loading', description: '加载' },
         { to: '/element/dialog', description: '对话框' },
-        { to: '/element/upload', description: '上传' }
+        { to: '/element/upload', description: '上传' },
+        { to: '/element/scrollbar', description: '滚动组件' },
+        { to: '/element/tree', description: '树形组件' }
       ]
     }
   }
