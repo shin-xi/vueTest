@@ -1,18 +1,23 @@
 <template>
   <div>
-    <el-date-picker
-      v-model="value1"
-      type="datetime"
-      placeholder="选择日期时间"/>
+    <!--    <el-date-picker-->
+    <!--      v-model="value1"-->
+    <!--      type="datetime"-->
+    <!--      placeholder="选择日期时间"/>-->
 
     <chinaAreaData
       ref="wsChinaAreaData"
+      :showAllLevels="false"
+      :disabled="false"
+      :locateCurrentCity="false"
       v-model="codes"
       :allOption="['所在省','全部','全部']"
       :level="3"
       :chinaAreaDataNames.sync="ruleForm.areaNames"
+      clearable
       myPlaceholder="所在省"
-      common-service-url="http://10.20.100.252:5050/static/chinaAreaDataCountyAll_2019.js"/>
+      common-service-url="http://10.20.100.252:5050/static/chinaAreaDataCountyAll_2019.js"
+      @change="changeCode"/>
 
     <!--    <el-button type="primary" @click="reset">清空</el-button>-->
     <hr>
@@ -77,7 +82,7 @@ export default {
         areaCodes: [],
         areaNames: []
       },
-      codes: []
+      codes: ['310000000000', '310100000000', '']
     }
   },
   watch: {
@@ -97,9 +102,9 @@ export default {
   mounted() {
     // this.$refs.wsChinaAreaData.chinaAreaDataCodes = ['310000000000', '310100000000', '']
 
-    setTimeout(() => {
-      this.codes = ['310000000000', '310100000000', '310105000000']
-    }, 5000)
+    // setTimeout(() => {
+    //   this.codes = ['310000000000', '310100000000', '310105000000']
+    // }, 5000)
   },
   methods: {
     demo() {
@@ -107,6 +112,9 @@ export default {
     },
     reset() {
       this.$refs.wsChinaAreaData.reset()
+    },
+    changeCode(data) {
+      console.log('changeCode', data)
     }
   }
 }

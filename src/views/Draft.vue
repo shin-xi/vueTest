@@ -22,7 +22,8 @@ export default {
         { to: '/draft/trySomething', description: '试验' },
         { to: '/draft/cities', description: '城市选择' },
         { to: '/draft/excel', description: 'excel' },
-        { to: '/draft/cropper', description: '图片裁剪' }
+        { to: '/draft/cropper', description: '图片裁剪' },
+        { to: '/draft/wayPoint', description: '滚动监听' }
       ]
     }
   }

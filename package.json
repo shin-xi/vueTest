@@ -28,6 +28,7 @@
     "vue-ele-upload-image": "^2.0.8",
     "vue-json-excel": "^0.2.98",
     "vue-router": "^3.0.1",
+    "vue-waypoint": "^3.5.2",
     "vuex": "^3.0.1",
     "ws-china-area-data": "^1.0.9",
     "xlsx": "^0.14.1"

@@ -5,6 +5,7 @@ import trySomething from '@/components/Draft/trySomething'
 import cities from '@/components/Draft/cities'
 import excel from '@/components/Draft/excel'
 import cropper from '@/components/Draft/cropper'
+import wayPoint from '@/components/Draft/wayPoint'
 
 const draft = [
   {
@@ -34,6 +35,10 @@ const draft = [
       {
         path: 'cropper',
         component: cropper
+      },
+      {
+        path: 'wayPoint',
+        component: wayPoint
       }
     ]
   }

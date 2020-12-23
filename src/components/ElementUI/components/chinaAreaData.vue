@@ -1,6 +1,5 @@
 <template>
   <el-cascader
-    v-if="provinceAndCityAndDistrictData.length && commonServiceUrl"
     :placeholder="placeholder"
     :style="{width: `${typeof width ==='number'?width+'px':width}`}"
     :props="{ checkStrictly: checkStrictly,multiple:multiple }"
@@ -8,6 +7,9 @@
     :options="provinceAndCityAndDistrictData"
     :collapse-tags="collapseTags"
     :size="size"
+    :clearable="clearable"
+    :disabled="disabled"
+    :show-all-levels="showAllLevels"
     class="cascader_chinaAreaData"
     change-on-select
     @change="change"/>
@@ -80,6 +82,10 @@ export default {
       type: Boolean,
       default: false
     },
+    clearable: {
+      type: Boolean,
+      default: false
+    },
     whiteList: {
       type: Array,
       default() {
@@ -89,6 +95,14 @@ export default {
     myPlaceholder: {
       type: String,
       default: '请选择'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    showAllLevels: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -136,10 +150,11 @@ export default {
   computed: {
     placeholder() {
       if (this.chinaAreaDataNames.length > 0) {
-        if (this.chinaAreaDataNames.length === 1) {
-          return this.chinaAreaDataNames[0]
+        const chinaAreaDataNames = this.chinaAreaDataNames.filter(v => !!v)
+        if (chinaAreaDataNames.length === 1) {
+          return chinaAreaDataNames[0]
         } else {
-          return this.chinaAreaDataNames.join('/')
+          return chinaAreaDataNames.join('/')
         }
       } else {
         return this.myPlaceholder
@@ -149,6 +164,9 @@ export default {
   watch: {
     codes: {
       handler(nv) {
+        if (!nv.length) {
+          this.reset()
+        }
         this.chinaAreaDataCodes = nv
       },
       immediate: true
@@ -162,20 +180,21 @@ export default {
       immediate: true
     },
     chinaAreaDataCodes: {
-      handler(nv) {
+      handler(nv, ov) {
         if (nv.length > 0) {
           if (this.CodeToText) {
             const chinaAreaDataNames = []
             this.chinaAreaDataCodes.forEach(v => {
               chinaAreaDataNames.push(this.CodeToText[v] || '')
             })
-            // console.log(chinaAreaDataNames)
             this.chinaAreaDataNames = chinaAreaDataNames
           }
         }
-        this.$emit('change', nv)
+        if (JSON.stringify(nv) !== JSON.stringify(ov)) {
+          this.$emit('change', nv)
+        }
       },
-      immediate: true
+      immediate: false
     }
   },
   mounted() {
@@ -189,19 +208,20 @@ export default {
       }
       load(`${this.commonServiceUrl}${cache}`, (err, script) => {
         if (err) {
-          throw Error(err)
+          window.provinceAndCityAndDistrictData = require('./data/dataSource')
+          // throw Error(err)
         } else {
           // console.log(script.src)
-          provinceAndCityAndDistrictData.forEach(v => { // 排序
-            this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
-          })
-          this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
-          this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
-          this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
-          this.$nextTick(() => {
-            this.$emit('update:CodeToText', this.CodeToText)
-          })
         }
+        provinceAndCityAndDistrictData.forEach(v => { // 排序
+          this.provinceAndCityAndDistrictData[this.provinceIndex[v.label]] = v
+        })
+        this.provinceAndCityAndDistrictData = this.processData(this.provinceAndCityAndDistrictData)
+        this.provinceAndCityAndDistrictData = [...this.provinceAndCityAndDistrictData]
+        this.transCodeToText(this.CodeToText, this.provinceAndCityAndDistrictData)
+        this.$nextTick(() => {
+          this.$emit('update:CodeToText', this.CodeToText)
+        })
       })
     } else {
       provinceAndCityAndDistrictData.forEach(v => { // 排序
@@ -250,7 +270,6 @@ export default {
             citySearch.getLocalCity((status, result) => {
               if (status === 'complete' && result.info === 'OK') {
                 // 查询成功，result即为当前所在城市信息
-                // console.log(result)
                 // eslint-disable-next-line
                 let { province, city } = result
                 province = province === '上海市' ? '上海' : province
@@ -262,7 +281,6 @@ export default {
                 // const city = '南京市'
                 if (provinceAndCityAndDistrictData) {
                   const provinceOpt = provinceAndCityAndDistrictData.find(v => v.label === province)
-                  // console.log(province, city, provinceOpt, provinceAndCityAndDistrictData)
                   chinaAreaDataCodes.push(provinceOpt.value)
                   if (province === city) {
                     try {
@@ -274,7 +292,6 @@ export default {
                     const cityOpt = provinceOpt.children.find(v => v.label === city)
                     chinaAreaDataCodes.push(cityOpt.value)
                   }
-                  // console.log(chinaAreaDataCodes)
                   this.chinaAreaDataCodes = chinaAreaDataCodes
                   this.change()
                 }
@@ -378,7 +395,6 @@ export default {
           this.chinaAreaDataCodes.forEach(v => {
             chinaAreaDataNames.push(this.CodeToText[v] || '')
           })
-          // console.log(chinaAreaDataNames)
           this.chinaAreaDataNames = chinaAreaDataNames
 
           if (this.municipalities.has(chinaAreaDataNames[0]) && !chinaAreaDataNames[1]) {
