@@ -12,6 +12,7 @@
     :show-all-levels="showAllLevels"
     class="cascader_chinaAreaData"
     change-on-select
+    @remove-tag="removeTag"
     @change="change"/>
 </template>
 
@@ -271,7 +272,7 @@ export default {
               if (status === 'complete' && result.info === 'OK') {
                 // 查询成功，result即为当前所在城市信息
                 // eslint-disable-next-line
-                let { province, city } = result
+                let {province, city} = result
                 province = province === '上海市' ? '上海' : province
                 province = province === '北京市' ? '北京' : province
                 province = province === '重庆市' ? '重庆' : province
@@ -406,6 +407,9 @@ export default {
           }
         }
       }
+    },
+    removeTag(node) {
+      this.$emit('removeTag', node)
     },
     reset() {
       this.chinaAreaDataCodes = this.chinaAreaDataNames = []

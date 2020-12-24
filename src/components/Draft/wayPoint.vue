@@ -89,7 +89,6 @@ export default {
       }
     },
     getActiveIndex() {
-      console.log(1111, [...this.viewList].sort((a, b) => a - b)[0])
       return [...this.viewList].sort((a, b) => a - b)[0]
     }
   }

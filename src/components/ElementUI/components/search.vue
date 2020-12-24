@@ -14,6 +14,7 @@
       :allOption="['所在省','全部','全部']"
       :level="3"
       :chinaAreaDataNames.sync="ruleForm.areaNames"
+      multiple
       clearable
       myPlaceholder="所在省"
       common-service-url="http://10.20.100.252:5050/static/chinaAreaDataCountyAll_2019.js"
