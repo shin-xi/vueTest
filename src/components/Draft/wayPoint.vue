@@ -45,7 +45,7 @@
       wayPoint3
     </div>
 
-    <div class="foot"/>
+    <div class="foot">foot</div>
   </div>
 </template>
 
@@ -123,6 +123,6 @@ export default {
 
 .foot {
   background: grey;
-  height: 600px;
+  height: 200px;
 }
 </style>
